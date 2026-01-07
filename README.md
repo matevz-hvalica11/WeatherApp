@@ -34,7 +34,7 @@ The application is hosted on Azure Cloud, making it globally accessible and suit
 
 🔗 Live App:
 https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
-(for the best viewing experience, keep browser zoom at 100%)
+(for the best viewing experience, keep browser zoom at 110%)
 
 
 🖼️ Credits
