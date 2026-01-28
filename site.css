@@ -107,9 +107,9 @@ html, body {
             color: #f1f5f9 !important;
         }
 
-        body.dark-mode .custom-navbar a {
-            color: #f1f5f9 !important;
-        }
+            body.dark-mode .custom-navbar a {
+                color: #f1f5f9 !important;
+            }
 
         body.dark-mode .container,
         body.dark-mode main {
@@ -328,20 +328,20 @@ select.form-control {
     .hourly-card:hover {
         transform: scale(1.05);
     }
- /* ────────────── Metrics ────────────── */
- .metric-card {
- background: rgba(240, 248, 255, 0.25);    
- color: #0d0d0d;
- border: 2px solid #60a5fa;
- padding: 20px;
- border-radius: 10px;
- min-width: 120px;
- text-align: center;
- backdrop-filter: blur(8px);
- box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
- transition: transform 0.3s ease, box-shadow 0.3s ease;
- margin-bottom: 20px;
- height: 100%;
+/* ────────────── Metrics ────────────── */
+.metric-card {
+    background: rgba(240, 248, 255, 0.25);
+    color: #0d0d0d;
+    border: 2px solid #60a5fa;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 120px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+    height: 100%;
 }
 
     .metric-card:hover {
@@ -374,15 +374,35 @@ select.form-control {
 html.sunny-bg, body.sunny-bg {
     background: linear-gradient(135deg, #f6d365, #fda085) !important;
 }
+
 html.rainy-bg, body.rainy-bg {
     background: linear-gradient(135deg, #355c7d, #6c5b7b) !important;
 }
+
 html.cloudy-bg, body.cloudy-bg {
     background: linear-gradient(135deg, #bdc3c7, #2c3e50) !important;
 }
+
 html.snowy-bg, body.snowy-bg {
     background: linear-gradient(135deg, #e0eafc, #cfdef3) !important;
 }
+
 html.foggy-bg, body.foggy-bg {
     background: linear-gradient(135deg, #c9d6ff, #e2e2e2) !important;
+}
+
+
+.fade-swap {
+    animation: fadeSwap 0.45s ease-in-out forwards;
+}
+
+@keyframes fadeSwap {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
