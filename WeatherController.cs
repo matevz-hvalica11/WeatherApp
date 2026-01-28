@@ -46,7 +46,15 @@ namespace MyWeatherApp_Deployed.Controllers
 
 
             string json = await response.Content.ReadAsStringAsync();
-            JObject data = JObject.Parse(json);
+            JObject data;
+            try
+            {
+                data = JObject.Parse(json);
+            }
+            catch
+            {
+                return Content("Weather API returned invalid data.");
+            }
 
             var model = new WeatherModel
             {
@@ -55,7 +63,9 @@ namespace MyWeatherApp_Deployed.Controllers
                 CurrentTemperature = (double?)data["current"]?[unit == "F" ? "temp_f" : "temp_c"] ?? 0,
                 FeelsLikeTemperature = (double?)data["current"]?[unit == "F" ? "feelslike_f" : "feelslike_c"] ?? 0,
                 CurrentHumidity = (int?)data["current"]?["humidity"] ?? 0,
-                CurrentWindSpeed = (double?)data["current"]?["wind_kph"] ?? 0,
+                CurrentWindSpeed = unit == "F"
+                    ? ((double?)data["current"]?["wind_kph"] ?? 0) * 0.621371
+                    : (double?)data["current"]?["wind_kph"] ?? 0,
                 UVIndex = (double?)data["current"]?["uv"] ?? 0,
                 CurrentIconUrl = "https:" + data["current"]?["condition"]?["icon"]?.ToString(),
                 TempUnit = unit == "F" ? "F" : "C",
@@ -103,7 +113,10 @@ namespace MyWeatherApp_Deployed.Controllers
                     {
                         Time = hour["time"]?.ToString() ?? "",
                         Temperature = (double?)hour[unit == "F" ? "temp_f" : "temp_c"] ?? 0,
-                        Condition = hour["condition"]?["text"]?.ToString() ?? ""
+                        Condition = hour["condition"]?["text"]?.ToString() ?? "",
+                        Precipitation = (double?)hour[unit == "F" ? "precip_in" : "precip_mm"] ?? 0,
+                        ChanceOfRain = (int?)hour["chance_of_rain"] ?? 0,
+                        ChanceOfSnow = (int?)hour["chance_of_snow"] ?? 0
                     });
                 }
             }
