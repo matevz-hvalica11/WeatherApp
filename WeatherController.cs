@@ -29,14 +29,26 @@ namespace MyWeatherApp_Deployed.Controllers
             if (string.IsNullOrWhiteSpace(apiKey))
                 return Content("Weather API key missing in configuration.");
 
-            string query = !string.IsNullOrWhiteSpace(city)
-                ? city
-                : (lat.HasValue && lon.HasValue)
-                    ? $"{lat.Value.ToString(CultureInfo.InvariantCulture)},{lon.Value.ToString(CultureInfo.InvariantCulture)}"
-                    : "New York";
+            string query;
 
+            if (lat.HasValue && lon.HasValue)
+            {
+                query = $"{lat.Value.ToString(CultureInfo.InvariantCulture)},{lon.Value.ToString(CultureInfo.InvariantCulture)}";
+            }
+            else if (!string.IsNullOrWhiteSpace(city))
+            {
+                query = city;
+            }
+            else
+            {
+                return View(new WeatherModel
+                {
+                    CityName = "Locating...",
+                    TempUnit = unit
+                });
+            }
 
-            string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes";
+                string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes";
 
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync(url);
