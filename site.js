@@ -383,19 +383,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Severe Weather Alerts ---
     function checkSevereWeather(desc) {
-        const alertBox = document.getElementById("weatherAlert");
-        if (!alertBox || !desc) return;
+        if (!desc) return;
 
-        const severe = ["storm", "extreme", "hurricane", "tornado", "heavy snow", "heatwave", "flood"];
+        const severe = [
+            "storm", "extreme", "hurricane", "tornado",
+            "heavy snow", "heatwave", "flood"
+        ];
+
         const lower = desc.toLowerCase();
         const match = severe.find(word => lower.includes(word));
+
         if (match) {
-            alertBox.style.display = "block";
-            alertBox.textContent = `⚠️ SEVERE WEATHER: ${match.toUpperCase()} detected. Stay safe!`;
-            console.warn("🚨 Alert:", match);
-        } else {
-            alertBox.style.display = "none";
+            // Fill modal content
+            const body = document.getElementById("weatherAlertModalBody");
+            if (body) {
+                body.textContent = `A ${match.toUpperCase()} alert is active for this area. Stay cautious.`;
+            }
+
+            // Show modal
+            const modalEl = document.getElementById("weatherAlertModal");
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
         }
     }
-    checkSevereWeather(getConditionText());
+
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.classList.add('fade-swap');
+    }
 });
