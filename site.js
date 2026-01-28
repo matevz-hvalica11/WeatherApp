@@ -274,6 +274,36 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // --- Share Button ---
+    if (shareButton) {
+        shareButton.addEventListener("click", async () => {
+            const shareData = {
+                title: "Weather Update",
+                text: `Check the weather in ${document.querySelector("h2.fw-bold")?.textContent || "this.location"}!`,
+            };
+
+            // if browser supports native share
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    console.log("Shared successfully!");
+                } catch (err) {
+                    console.warn("Share cancelled:", err);
+                }
+                return;
+            }
+
+            // Fallback: copy URL to clipboard
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert("Copied the link to your clipboard ❤️");
+            } catch (err) {
+                console.warn("Clipboard failed:", err);
+            }
+        });
+    }
+
     // --- Clock ---
     function updateClock() {
         if (!clockElem) return;
