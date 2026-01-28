@@ -25,7 +25,7 @@ self.addEventListener('install', function (event) {
 // Fetch Event
 self.addEventListener('fetch', function (event) {
     event.respondWith(
-        catches.match(event.request)
+        caches.match(event.request)
             .then(function (response) {
                 // Serve from cache if available
                 if (response) {
@@ -40,8 +40,9 @@ self.addEventListener('fetch', function (event) {
 // Activate event: clear out old caches
 self.addEventListener('activate', function (event) {
     var cacheWhitelist = [CACHE_NAME];
+
     event.waitUntil(
-        cacheNames.map(function (cacheNames) {
+        caches.keys().then(function (cacheNames) {
             return Promise.all(
                 cacheNames.map(function (cacheName) {
                     if (!cacheWhitelist.includes(cacheName)) {
