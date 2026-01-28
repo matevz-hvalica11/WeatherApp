@@ -4,36 +4,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Auto Geo Location on first visit
     (function tryAutoGeoLocation() {
-        // Do not auto-locate if user already chose a city or coords
+
+        console.log("📍¸Starting geolocation attempt...");
+
+        // If user already selected a city or coords, do nothing
         const params = new URLSearchParams(window.location.search);
-        if (params.has("city") || (params.has("lat") && params.has("lon"))) return;
-
-        // Only run once
-        if (localStorage.getItem("geoResolved") === "1") return;
-
-        if (!navigator.geolocation) {
-            localStorage.setItem("geoResolved", "1");
+        if (params.has("city") || (params.has("lat") && params.has("lon"))) {
+            console.log("📍 Skipped geolocation - user already selected.");
             return;
         }
 
+        // Run only once per browser unless manually cleared
+        if (localStorage.getItem("geoResolved") === "1") {
+            console.log("📍 Skipped geolocation - already resolved.");
+            return;
+        }
+
+        // If browser has no geolocation support
+        if (!navigator.geolocation) {
+            console.warn("📍 Geolocation not supported.");
+            localStorage.setItem("geoResolved", "1");
+        }
+
+        // Now attempt actual geolocation
         navigator.geolocation.getCurrentPosition(
             pos => {
+                console.log("📍 GEO SUCCESS:", pos);
+
                 const lat = pos.coords.latitude.toFixed(4);
                 const lon = pos.coords.longitude.toFixed(4);
                 const unit = localStorage.getItem("tempUnit") || "C";
 
                 localStorage.setItem("geoResolved", "1");
-                window.location.href = `/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`;
+
+                // OperaGX-safe navigation
+                const url = `/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`;
+                console.log(" Redirecting to:", url);
+
+                // Stronger redirect
+                window.location.replace(url);
             },
             err => {
-                // User denied or error => fallback silently
+                console.warn("📍 GEO ERROR:", err.message);
+
+
+                // Mark geolocation as resolved so we don't loop
                 localStorage.setItem("geoResolved", "1");
-                console.warn("Geolocation unavailable:", err.message);
+
+                // Let fallback (NYC) load naturally
             },
             {
                 enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 600000
+                timeout: 8000,          // increased for stability
+                maximumAge: 0           // ensures FRESH coordinates
             }
         );
     })();
