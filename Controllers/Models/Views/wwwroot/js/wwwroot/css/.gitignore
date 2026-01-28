@@ -1,0 +1,17 @@
+bin/
+obj/
+*.user
+*.suo
+*.swp
+*.tmp
+*.log
+*.db
+*.cache
+.vs/
+wwwroot/dist/
+appsettings.Development.json
+appsettings.Local.json
+*.secret
+*.publishsettings
+*.psess
+*.vsp
