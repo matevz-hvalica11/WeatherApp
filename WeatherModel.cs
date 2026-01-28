@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace MyWeatherApp_Deployed.Models
 {
@@ -27,7 +26,7 @@ namespace MyWeatherApp_Deployed.Models
         public List<DailyForecast> Forecasts { get; set; } = new();
         public List<HourlyForecast> Hourly { get; set; } = new();
 
-        public string FeelsLike => $"{FeelsLikeTemperature:0#}";
+        public string FeelsLike => $"{FeelsLikeTemperature:0.#}";
         public string WindSpeed => $"{CurrentWindSpeed:0.#}";
         public string Humidity => $"{CurrentHumidity}";
         public string UV => $"{UVIndex:0.#}";
@@ -62,7 +61,7 @@ namespace MyWeatherApp_Deployed.Models
 
             public double TotalPrecipitation { get; set; }
 
-            public string IconClass => new WeatherModel().GetWeatherIcon(Description);
+            public string IconClass => WeatherModel.GetWeatherIcon(Description);
         }
 
         public class HourlyForecast
@@ -73,10 +72,11 @@ namespace MyWeatherApp_Deployed.Models
 
             public double Precipitation { get; set; }
             public int ChanceOfRain { get; set; }
-            public int ChancefSnow { get; set; }
+            public int ChanceOfSnow { get; set; }
 
             public string Temp => $"{Temperature:0.#}";
-            public string IconClass => new WeatherModel().GetWeatherIcon(Condition);
+            public string IconClass => WeatherModel.GetWeatherIcon(Condition);
+
         }
 
         public class  AirQualityData
@@ -93,18 +93,18 @@ namespace MyWeatherApp_Deployed.Models
         }
 
 
-        public string GetWeatherIcon(string condition)
+        public static string GetWeatherIcon(string condition)
         {
             var lower = condition?.ToLower() ?? "";
 
-            if (lower.Contains("clear") || lower.Contains("sunny")) return "wi wi-day-sunny";
-            if (lower.Contains("partly") && lower.Contains("cloud")) return "wi wi-day-cloudy";
-            if (lower.Contains("cloud") || lower.Contains("overcast")) return "wi wi-cloudy";
-            if (lower.Contains("rain") || lower.Contains("drizzle")) return "wi wi-rain";
-            if (lower.Contains("thunder") || lower.Contains("storm")) return "wi wi-thunderstorm";
-            if (lower.Contains("snow") || lower.Contains("sleet")) return "wi wi-snow";
-            if (lower.Contains("fog") || lower.Contains("mist") || lower.Contains("haze")) return "wi wi-fog";
-            if (lower.Contains("wind")) return "wi wi-strong-wind";
+            if (lower.Contains("clear") || lower.Contains("sunny")) return "wi-day-sunny";
+            if (lower.Contains("partly") && lower.Contains("cloud")) return "wi-day-cloudy";
+            if (lower.Contains("cloud") || lower.Contains("overcast")) return "wi-cloudy";
+            if (lower.Contains("rain") || lower.Contains("drizzle")) return "wi-rain";
+            if (lower.Contains("thunder") || lower.Contains("storm")) return "wi-thunderstorm";
+            if (lower.Contains("snow") || lower.Contains("sleet")) return "wi-snow";
+            if (lower.Contains("fog") || lower.Contains("mist") || lower.Contains("haze")) return "wi-fog";
+            if (lower.Contains("wind")) return "wi-strong-wind";
 
             return "wi wi-na";
         }
