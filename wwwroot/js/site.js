@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })();
 
 
-
-
-
     // --- Constants ---
     const BG_CLASSES = ["default-bg", "sunny-bg", "rainy-bg", "cloudy-bg", "foggy-bg", "snowy-bg"];
     const tempToggleButton = document.getElementById('tempToggleButton');
@@ -419,3 +416,4 @@ document.addEventListener('DOMContentLoaded', function () {
         mainContent.classList.add('fade-swap');
     }
 });
+
