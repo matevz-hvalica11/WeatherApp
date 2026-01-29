@@ -43,7 +43,7 @@ namespace MyWeatherApp_Deployed.Controllers
             {
                 return View(new WeatherModel
                 {
-                    CityName = "Locating...",
+                    CityName = "",
                     TempUnit = unit
                 });
             }
