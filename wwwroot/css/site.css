@@ -13,141 +13,81 @@ html, body {
     transition: background 0.6s ease, color 0.4s ease;
 }
 
-    /* ────────────── Dark Mode ────────────── */
-    html.dark-mode,
-    body.dark-mode,
-    body.dark-mode::before {
-        background-color: #000000 !important;
-        color: #f3f4f6;
-        transition: background-color 0.4s ease, color 0.4s ease;
+    /* ────────────── Dark Mode (Cleaned & Unified) ────────────── */
+
+    body.dark-mode {
+        background-color: #0f172a !important;
+        color: #f1f5f9 !important;
+        background-image: none !important;
     }
 
-        body.dark-mode::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: #000000;
-            z-index: -1;
-        }
-
-        body.dark-mode .main-content,
+        /* Remove Bootstrap white backgrounds everywhere */
+        body.dark-mode *,
+        body.dark-mode .container,
+        body.dark-mode main,
         body.dark-mode .row,
         body.dark-mode .col,
-        body.dark-mode .weather-overlay {
-            background-color: transparent !important;
-        }
-
-        body.dark-mode .btn {
-            background: #334155;
-            color: #fff;
-            border: #030302;
-        }
-
-        body.dark-mode .btn-outline-primary {
-            border-color: #94a3b8;
-            color: #e5e7eb;
-        }
-
-            body.dark-mode .btn-outline-primary:hover {
-                background: #475569;
-            }
-
-        body.dark-mode .form-control {
-            background: #1e293b;
-            color: #f3f4f6;
-            border: 1px solid #475569;
-        }
-
-        body.dark-mode .card,
-        body.dark-mode .weather-card,
-        body.dark-mode .forecast-card,
-        body.dark-mode .metric-card {
-            background: rgba(30, 41, 59, 0.85);
-            color: #f3f4f6;
-            border: 2px solid #3b82f6;
-            box-shadow: 0 0 0 2px #3b82f6 inset, 0 8px 28px rgba(0, 0, 0, 0.35);
-        }
-
-        body.dark-mode .forecast-card {
-            background: rgba(36, 37, 38, 0.6);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
-            border: 2px solid #7c88a1;
-        }
-
-        body.dark-mode .hourly-card {
-            background: rgba(17, 24, 39, 0.5);
-            color: #9ca3af;
-            border: 2px solid #475569;
-        }
-
-        body.dark-mode #clock {
-            color: #e5e7eb;
-        }
-
-        body.dark-mode ::placeholder {
-            color: #f3f4f6 !important;
-        }
-
-        body.dark-mode #weather-map,
-        body.dark-mode .leaflet-container {
-            background-color: #111827 !important;
-            transition: background-color 0.4s ease;
-        }
-
-        body.dark-mode .row,
         body.dark-mode .col-12,
         body.dark-mode .col-md-6,
         body.dark-mode .col-md-auto {
             background-color: transparent !important;
+            color: #f1f5f9 !important;
+            box-shadow: none !important;
             background-image: none !important;
         }
 
-        body.dark-mode .custom-navbar {
+        /* Navbar */
+        body.dark-mode .navbar,
+        body.dark-mode .navbar * {
             background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+            border-color: #1f2937 !important;
+        }
+
+        body.dark-mode .nav-link,
+        body.dark-mode .navbar-brand {
+            color: #e2e8f0 !important;
+        }
+
+        /* Form Controls */
+        body.dark-mode .form-control {
+            background-color: #1e293b !important;
+            border-color: #475569 !important;
             color: #f1f5f9 !important;
         }
 
-            body.dark-mode .custom-navbar a {
-                color: #f1f5f9 !important;
+        /* Buttons */
+        body.dark-mode .btn {
+            background-color: #334155 !important;
+            border-color: #475569 !important;
+            color: #f1f5f9 !important;
+        }
+
+            body.dark-mode .btn:hover {
+                background-color: #475569 !important;
             }
 
-        body.dark-mode .container,
-        body.dark-mode main {
-            background-color: #0f172a !important;
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .weather-content {
-            background-color: #1e293b !important;
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .container
-        body.dark-mode .main {
-            background-color: #0f172a !important;
-            color: #f1f5f9 !important;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-mode .container,
-        body.dark-mode main,
+        /* Cards & Weather Boxes */
         body.dark-mode .card,
         body.dark-mode .forecast-card,
         body.dark-mode .hourly-card,
-        body.dark-mode .metric-card,
-        body.dark-mode .form-control,
-        body.dark-mode .btn,
-        body.dark-mode .navbar,
-        body.dark-mode .weather-overlay,
-        body.dark-mode .row,
-        body.dark-mode .col-12,
-        body.dark-mode .col-md-6,
-        body.dark-mode .col-md-auto {
-            background-color: #0f172a !important;
+        body.dark-mode .metric-card {
+            background-color: rgba(15, 23, 42, 0.85) !important;
+            border-color: #334155 !important;
             color: #f1f5f9 !important;
-            background-image: none !important;
-            box-shadow: none !important;
-            border-color: #1f2937 !important;
+            box-shadow: 0 0 0 2px #1e293b inset !important;
+        }
+
+        /* Map container */
+        body.dark-mode #weather-map,
+        body.dark-mode .leaflet-container {
+            background-color: #0f172a !important;
+        }
+
+
+        body.dark-mode .form-control::placeholder {
+            color: #f1f5f9 !important;
+            opacity: 1 !important;
         }
 
 
@@ -405,4 +345,36 @@ html.foggy-bg, body.foggy-bg {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* Leaflet Dark Mode Fix */
+body.dark-mode #weather-map,
+body.dark-mode .leaflet-container,
+body.dark-mode .leaflet-pane,
+body.dark-mode .leaflet-tile-pane,
+body.dark-mode .leaflet-map-pane,
+body.dark-mode .leaflet-layer {
+    background: #0f172a !important;
+    background-color: #0f172a !important;
+}
+
+
+/* Remove Leaflet's internal white tile background */
+body.dark-mode .leaflet-tile-pane,
+body.dark-mode .leaflet-layer,
+body.dark-mode .leaflet-map-pane {
+    background: #0f172a !important;
+}
+
+
+/* Prevent flashes during tile loading */
+body.dark-mode .leaflet-tile {
+    background-color: #0f172a !important;
+}
+
+
+.leaflet-container {
+    background: transparent !important;
+    transition: background 0.4s ease;
 }
