@@ -1,6 +1,6 @@
 ## 🌦️ Weather App
 
-A dynamic, modern weather application built with WeatherAPI, developed in Visual Studio 2022, and deployed to the Cloud.
+A dynamic, modern weather application built with WeatherAPI, developed in Visual Studio, and deployed to the Cloud.
 
 ## 🚀 Project Origin
 
