@@ -25,7 +25,7 @@ One-click weather sharing via the browser,
 
 Integrated with leaflet.js, allowing users to explore weather data by location,
 
-Automatic geolocation on first visit (with user permission) to display weather based on the user’s exact position.
+Automatic geolocation on first visit (with user permission) to display weather based on the user’s exact position (still in development).
 
 
 ## ☁️ Cloud Deployment
@@ -45,4 +45,4 @@ Map Framework: leaflet.js
 
 ## 🔄 Status
 
-The application is currently under development and further polish.
+The application is online and operational.
