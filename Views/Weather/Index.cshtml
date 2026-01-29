@@ -36,9 +36,10 @@
     <!-- Header Section -->
     <div class="row mb-5 align-items-center">
         <div class="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
-            @if (Model.CityName == "Locating...")
+            @if (string.IsNullOrEmpty(Model.CityName))
             {
-                <h2 class="fw-bold text-muted">Locating your position...</h2>
+                <h2 class="fw-bold text-muted">Select your location.</h2>
+                <p class="text-muted">Please select your location for weather data.</p>
             }
             else
             {
@@ -129,8 +130,8 @@
     @if (Model.CityName == "Locating...")
     {
         <div class="text-center my-5">
-            <h3 class="fw-bold">Locating your position...</h3>
-            <p class="text-muted">Please wait while we detect your location.</p>
+            <h3 class="fw-bold">Select your location.</h3>
+            <p class="text-muted">Please select your location for weather data.</p>
         </div>
 
         @* STOP RENDERING THE REST *@
