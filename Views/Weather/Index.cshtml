@@ -68,7 +68,7 @@
     <div class="row mb-5 justify-content-center gx-3 gy-3">
         <div class="col-12 col-md-auto">
             <form method="get" asp-action="Index" asp-controller="Weather" class="d-flex gap-3">
-                <input type="text" name="city" class="form-control" placeholder="Enter city..." />
+                <input type="text" name="city" class="form-control glass-input" placeholder="Enter city..." />
                 <button type="submit" class="btn btn-outline-primary">Search</button>
             </form>
         </div>
@@ -140,7 +140,7 @@
     }
 
     <!-- Current Weather Card -->
-     <div class="card shadow-sm text-center mb-5 py-5 px-3">
+     <div class="card glass shadow-sm text-center mb-5 py-5 px-3">
         <i class="@Model.CurrentIconClass weather-icon mb-3"></i>
         <h1 class="display-4 mb-2">@Model.CurrentTemperature &deg;@Model.TempUnit</h1>
         <p class="lead mb-2">@Model.CurrentCondition</p>
@@ -156,7 +156,7 @@
         <div class="d-flex hourly-forecast gap-4 px-2">
             @foreach (var hour in Model.Hourly.Take(24))
             {
-                <div class="hourly-card text-center min-width-hour px-3 py-2">
+                <div class="hourly-card glass text-center min-width-hour px-3 py-2">
                     <div class="fw-bold mb-1">@hour.Time</div>
                     <i class="@hour.IconClass weather-icon mb-1"></i>
                     <div>@hour.Temperature &deg;@Model.TempUnit</div>
@@ -186,14 +186,14 @@
    <!-- Weather Metrics — row 1 -->
 <div class="row text-center mb-5 g-4">
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">☀️ UV Index</h6>
             <div class="uv-index">@Model.UVIndex</div>
         </div>
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">💨 Wind Speed</h6>
                 <div id="windSpeedValue"
                      data-kph="@Model.CurrentWindSpeed.ToString("0.#")"
@@ -204,7 +204,7 @@
         </div>
 
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">💧 Humidity</h6>
             <div>@Model.CurrentHumidity %</div>
         </div>
@@ -214,7 +214,7 @@
 <!-- Weather Metrics — row 2 (dew point, precipitation, AQI) -->
 <div class="row text-center mb-5 g-4">
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">🌡️ Dew Point</h6>
             <div id="dewPointValue"
                  data-c="@dewC.ToString("0.#")"
@@ -225,7 +225,7 @@
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">🌦️ Precipitation</h6>
             <div id="precipValue"
                  data-mm="@precipMm.ToString("0.##")"
@@ -236,7 +236,7 @@
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="metric-card">
+        <div class="metric-card glass">
             <h6 class="mb-2">🌫️ Air Quality</h6>
             <div id="airQualityValue"
                  data-index="@Model.AirQuality.UsEpaIndex"
