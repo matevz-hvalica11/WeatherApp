@@ -13,6 +13,48 @@ html, body {
     transition: background 0.6s ease, color 0.4s ease;
 }
 
+/* Glass UI */
+.glass {
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: all 0.35s ease;
+}
+
+.glass-hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+
+.glass-input {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #111;
+}
+
+body.dark-mode .glass-input {
+    background: rgba(30, 41, 59, 0.4);
+    color: #f1f5f9;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.glass-btn {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+body.dark-mode .glass-btn {
+    background: rgba(30, 41, 59, 0.35);
+    border-color: rgba(148, 163, 184, 0.25);
+}
+
+
     /* ────────────── Dark Mode (Cleaned & Unified) ────────────── */
 
     body.dark-mode {
@@ -88,6 +130,18 @@ html, body {
         body.dark-mode .form-control::placeholder {
             color: #f1f5f9 !important;
             opacity: 1 !important;
+        }
+
+
+        body.dark-mode .glass {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(148, 163,, 184, 0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0 0.45);
+        }
+
+
+        .body.dark-mode .glass {
+            background: rgba(30, 41, 59, 0.55);
         }
 
 
