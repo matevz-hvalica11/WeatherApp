@@ -45,4 +45,4 @@ Map Framework: leaflet.js
 
 ## 🔄 Status
 
-The application is online and operational.
+The application is currently in development, new features being added.
