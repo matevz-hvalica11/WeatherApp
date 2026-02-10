@@ -10,6 +10,7 @@ namespace MyWeatherApp_Deployed.Models
         public string CurrentCondition { get; set; } = string.Empty;
         public double CurrentTemperature { get; set; }
         public int CurrentHumidity { get; set; }
+        public int ForecastsCount => Forecasts?.Count ?? 0;
         public double CurrentWindSpeed { get; set; }
         public double CurrentWindSpeedMph => CurrentWindSpeed * 0.621371;
         public double FeelsLikeTemperature { get; set; }
@@ -25,7 +26,8 @@ namespace MyWeatherApp_Deployed.Models
 
         public List<DailyForecast> Forecasts { get; set; } = new();
         public List<HourlyForecast> Hourly { get; set; } = new();
-
+        public List<double> MinTemp { get; set; } = new List<double>();
+        public List<double> MaxTemp { get; set; } = new List<double>();
         public string FeelsLike => $"{FeelsLikeTemperature:0.#}";
         public string WindSpeed => $"{CurrentWindSpeed:0.#}";
         public string Humidity => $"{CurrentHumidity}";
