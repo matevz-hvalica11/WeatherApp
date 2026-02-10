@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function clearWeatherBackgrounds() {
         document.body.classList.remove(...BG_CLASSES);
-        document.documentElement.classList.remove(...BG_CLASSES);
     }
 
     function applyWeatherBackground(desc) {
@@ -319,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("⏳ Auto-refreshing");
         location.reload();
     }, 5 * 60 * 1000);
-    
+
 
     // --- Search Dropdown Behavior ---
     if (citySelect) {
@@ -333,8 +332,71 @@ document.addEventListener('DOMContentLoaded', function () {
             url.searchParams.set("city", selectedCity);
             url.searchParams.set("unit", unit);
             window.location.href = url.toString();
+
+            const currentCityParam = new URLSearchParams(window.location.search).get("city");
+            if (currentCityParam && citySelect) {
+                citySelect.value = currentCityParam;
+            }
         });
     }
+
+
+    // Saved cities system
+    const saveCityBtn = document.getElementById("saveCityButton");
+    const savedCitiesDropdown = document.getElementById("savedCities");
+
+    // Load existing saved cities from localStorage
+    function loadSavedCities() {
+        let saved = JSON.parse(localStorage.getItem("savedCities") || "[]");
+        savedCitiesDropdown.innerHTML = `<option value="">-- Saved Cities --</option>`;
+        savedCitiesDropdown.value = "";
+
+        saved.forEach(city => {
+            let opt = document.createElement("option");
+            opt.value = city;
+            opt.textContent = city;
+            savedCitiesDropdown.appendChild(opt);
+        });
+    }
+
+
+    // Save the currently displayed city
+    if (saveCityBtn) {
+        saveCityBtn.addEventListener("click", () => {
+            const currentCity = document.querySelector("h2.fw-bold")?.textContent;
+
+            if (!currentCity || currentCity === "Locating..." || !isNaN(currentCity)) {
+                alert("Cannot save this location.");
+                return;
+            }
+
+            let saved = JSON.parse(localStorage.getItem("savedCities") || "[]");
+
+            if (!saved.includes(currentCity)) {
+                saved.push(currentCity);
+                localStorage.setItem("savedCities", JSON.stringify(saved));
+                loadSavedCities();
+                alert(`Saved ${currentCity}`);
+            } else {
+                alert(`${currentCity} is already saved`);
+            }
+        });
+    }
+
+
+    // Loading a saved city
+    if (savedCitiesDropdown) {
+        savedCitiesDropdown.addEventListener("change", function () {
+            if (!this.value) return;
+
+            const unit = localStorage.getItem("tempUnit") || "C";
+            window.location.href = `/Weather/Index?city=${this.value}&unit=${unit}`;
+        });
+    }
+
+    // Load saved cities on page load
+    loadSavedCities();
+
 
     // --- Create Theme-Aware Tile Layer ---
     function createTileLayer() {
@@ -416,4 +478,81 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mainContent) {
         mainContent.classList.add('fade-swap');
     }
+
+
+    // Weather Graphs
+    function createWeatherCharts() {
+        const json = document.getElementById("weatherChartData");
+        if (!json) return;
+
+        const data = JSON.parse(json.textContent);
+
+        // Hourly Temperature Chart
+        const hourlyCtx = document.getElementById("hourlyTempChart");
+        if (hourlyCtx) {
+            new Chart(hourlyCtx, {
+                type: "line",
+                data: {
+                    labels: data.hourly.map(h => h.time),
+                    datasets: [{
+                        label: "Temperature (°" + (localStorage.getItem("tempUnit") || "C") + ")",
+                        data: data.hourly.map(h => h.temp),
+                        borderColor: "#38bdf8",
+                        backgroundColor: "rgba(56,189,248,0.25)",
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: "white" } },
+                        y: { ticks: { color: "white" } }
+                    }
+                }
+            });
+        }
+
+        // 3-Day High/Low Chart
+        const dailyCtx = document.getElementById("dailyTrendChart");
+        if (dailyCtx) {
+            new Chart(dailyCtx, {
+                type: "line",
+                data: {
+                    labels: data.daily.map(d => d.date),
+                    datasets: [
+                        {
+                            label: "Max Temp",
+                            data: data.daily.map(d => d.max),
+                            borderColor: "#ef4444",
+                            backgroundColor: "rgba(239,68,68,0.25)",
+                            borderWidth: 3,
+                            tension: 0.4
+                        },
+                        {
+                            label: "Min Temp",
+                            data: data.daily.map(d => d.min),
+                            borderColor: "#3b82f6",
+                            backgroundColor: "rgba(59,130,246,0.25)",
+                            borderWidth: 3,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: "white" } } },
+                    scales: {
+                        x: { ticks: { color: "white" } },
+                        y: { ticks: { color: "white" } }
+                    }
+                }
+            });
+        }
+    }
+
+    // Run charts after page load
+    window.addEventListener("load", createWeatherCharts);
 });
