@@ -30,7 +30,7 @@ Automatic geolocation on first visit (with user permission) to display weather b
 
 ## ☁️ Cloud Deployment
 
-The application is hosted on Azure Cloud, making it globally accessible and suitable for production use.
+The application is hosted on Azure Cloud, making it globally accessible and suitable for production use. 🔗 Live App: https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city= (for the best viewing experience, keep browser zoom at 100%)
 
 ## 🖼️ Credits
 
