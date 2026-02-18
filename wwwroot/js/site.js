@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Auto Geo Location on first visit
     (function tryAutoGeoLocation() {
 
+        // Do NOT run geolocation on the History page
+        if (window.location.pathname.toLowerCase().startsWith("/history"))
+            return;
+
         const params = new URLSearchParams(window.location.search);
 
         if (params.has("city") || (params.has("lat") && params.has("lon")))
@@ -347,8 +351,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load existing saved cities from localStorage
     function loadSavedCities() {
+        const savedCitiesDropdown = document.getElementById("savedCities");
+        if (!savedCitiesDropdown) return; // <--- the fix
+
         let saved = JSON.parse(localStorage.getItem("savedCities") || "[]");
-        savedCitiesDropdown.innerHTML = `<option value="">-- Saved Cities --</option>`;
+        savedCitiesDropdown.innerHTML = `<option value>="">-- Saved Cities --</option>`;
         savedCitiesDropdown.value = "";
 
         saved.forEach(city => {
