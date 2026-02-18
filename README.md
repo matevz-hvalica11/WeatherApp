@@ -1,4 +1,4 @@
-##🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
+#🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
 
 A fully featured, real-time weather application built with ASP.NET Core MVC, WeatherAPI, and Leaflet.js, developed in Visual Studio 2022 and deployed on Microsoft Azure App Service.
 
