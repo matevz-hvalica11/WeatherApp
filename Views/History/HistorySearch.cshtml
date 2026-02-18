@@ -1,0 +1,14 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Weather History";
+}
+
+<h2 class="fw-bold mb-4">Weather History Lookup</h2>
+
+<form method="get" asp-controller="History" asp-action="Index" class="d-flex gap-3">
+    <input type="text" name="city" class="form-control" placeholder="Enter city..." required />
+
+    <input type="date" name="date" class="form-control" required />
+
+    <button type="submit" class="btn btn-primary">View History</button>
+</form>
