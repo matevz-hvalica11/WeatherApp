@@ -18,8 +18,7 @@ Modern UI/UX design
 
 Real deployment pipelines
 
-Software engineering best practices
-Perfect for both real use and diploma documentation.
+Software engineering
 
 # ✨ Features
 
