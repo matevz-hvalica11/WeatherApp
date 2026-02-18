@@ -20,9 +20,9 @@ Real deployment pipelines
 
 Software engineering
 
-## ✨ Features
+# ✨ Features
 
-# 🌤️ Current Weather + Forecast
+## 🌤️ Current Weather + Forecast
 
 Real-time weather data
 
@@ -30,7 +30,7 @@ Real-time weather data
 
 3-day extended forecast
 
-# 📊 Detailed Weather Metrics
+## 📊 Detailed Weather Metrics
 
 UV Index
 
@@ -44,7 +44,7 @@ Precipitation
 
 Air Quality Index (AQI)
 
-# 🎨 UI & UX Enhancements
+## 🎨 UI & UX Enhancements
 
 Apple-Weather-style layout & animations
 
@@ -58,7 +58,7 @@ Light / Dark theme toggle
 
 °C / °F temperature switching
 
-# 🗺️ Interactive Map
+## 🗺️ Interactive Map
 
 Integrated Leaflet.js
 
@@ -66,13 +66,13 @@ Pan, zoom, click anywhere to load weather for that location
 
 Theme-aware map tiles (light/dark mode)
 
-# 📍 Geolocation
+## 📍 Geolocation
 
 Automatic location detection on first visit
 
 Falls back gracefully if permission is denied
 
-# 🔗 Sharing & Convenience
+## 🔗 Sharing & Convenience
 
 One-click weather sharing
 
@@ -82,7 +82,7 @@ Automatic refresh every 5 minutes
 
 Saved locations system (localStorage)
 
-# 🕰️ 🌡️ NEW: Historical Weather Lookup
+## 🕰️ 🌡️ NEW: Historical Weather Lookup
 
 A complete weather history feature with:
 
@@ -100,7 +100,7 @@ Azure-compatible routing and deployment setup
 
 This feature is fully implemented and production-ready.
 
-# ☁️ Cloud Hosting
+## ☁️ Cloud Hosting
 
 The entire application is deployed on Azure App Service, ensuring:
 
