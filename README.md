@@ -1,43 +1,126 @@
-## 🌦️ Weather App
+🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
 
-A dynamic, modern weather application built with WeatherAPI, developed in Visual Studio, and deployed to the Cloud.
+A fully featured, real-time weather application built with ASP.NET Core MVC, WeatherAPI, and Leaflet.js, developed in Visual Studio 2022 and deployed on Microsoft Azure App Service.
 
-## 🚀 Project Origin
+This project began as an internship assignment at Business Solutions, but quickly evolved into a complete, production-capable weather platform — designed, expanded, and engineered with real-world software development principles.
 
-This project started as a small internship task at Business Solutions and evolved into a personal project focused on building a feature-rich, real-world web application.
+🚀 Project Vision
 
-Instead of stopping at a basic weather display, the scope was expanded to include live data, interactive features, and full cloud deployment.
+What started as a simple “display the temperature” task transformed into a full weather system with forecasting, interactivity, UI theming, geolocation, historical weather lookup, and cloud deployment.
 
+This app demonstrates:
 
-## ✨ Features
+API integration
 
-3-day forecast and 24-hour hourly overview,
+Frontend + backend synergy
 
-UV index, Wind Speed, Humidity, Precipitation, Dew Point, and Air Quality,
+Modern UI/UX design
 
-Manual refresh and automatic refresh every 5 minutes,
+Real deployment pipelines
 
-Light / Dark Theme toggle and °C / °F unit switching,
+Software engineering best practices
+Perfect for both real use and diploma documentation.
 
-Weather-based background changes and a real-time clock,
+✨ Features
+🌤️ Current Weather + Forecast
 
-One-click weather sharing via the browser,
+Real-time weather data
 
-Integrated with leaflet.js, allowing users to explore weather data by location,
+24-hour hourly forecast
 
-Automatic geolocation on first visit (with user permission) to display weather based on the user’s exact position (still in development).
+3-day extended forecast
 
+📊 Detailed Weather Metrics
 
-## ☁️ Cloud Deployment
+UV Index
 
-The application is hosted on Azure Cloud, making it globally accessible and suitable for production use. 
+Wind Speed
 
-## 🖼️ Credits
+Humidity
+
+Dew Point
+
+Precipitation
+
+Air Quality Index (AQI)
+
+🎨 UI & UX Enhancements
+
+Apple-Weather-style layout & animations
+
+Weather-based dynamic backgrounds
+
+Smooth glassmorphism cards
+
+Real-time digital clock
+
+Light / Dark theme toggle
+
+°C / °F temperature switching
+
+🗺️ Interactive Map
+
+Integrated Leaflet.js
+
+Pan, zoom, click anywhere to load weather for that location
+
+Theme-aware map tiles (light/dark mode)
+
+📍 Geolocation
+
+Automatic location detection on first visit
+
+Falls back gracefully if permission is denied
+
+🔗 Sharing & Convenience
+
+One-click weather sharing
+
+Manual refresh
+
+Automatic refresh every 5 minutes
+
+Saved locations system (localStorage)
+
+🕰️ 🌡️ NEW: Historical Weather Lookup
+
+A complete weather history feature with:
+
+City & date search
+
+Daily summary
+
+Hour-by-hour breakdown
+
+Apple-style animated cards
+
+Full WeatherAPI Historic endpoint integration
+
+Azure-compatible routing and deployment setup
+
+This feature is fully implemented and production-ready.
+
+☁️ Cloud Hosting
+
+The entire application is deployed on Azure App Service, ensuring:
+
+Global accessibility
+
+SSL (HTTPS)
+
+Continuous deployment
+
+Production stability
+
+🖼️ Credits
 
 Weather Icons: Erik Flowers
 
-Map Framework: leaflet.js
+Map Framework: Leaflet.js
 
-## 🔄 Status
+Weather Data: WeatherAPI.com
 
-The application is currently undergoing development, new features being added and implemented.
+🔄 Project Status
+
+Actively developed.
+New features, UI updates, and performance improvements continue to be added.
