@@ -20,7 +20,7 @@ Real deployment pipelines
 
 Software engineering
 
-# ✨ Features
+## ✨ Features
 
 # 🌤️ Current Weather + Forecast
 
