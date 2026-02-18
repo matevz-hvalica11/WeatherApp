@@ -48,7 +48,7 @@ namespace MyWeatherApp_Deployed.Controllers
                 });
             }
 
-                string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes";
+            string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes";
 
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync(url);
@@ -168,12 +168,12 @@ namespace MyWeatherApp_Deployed.Controllers
         {
             return index switch
             {
-                0 => "Good",
-                1 => "Moderate",
-                2 => "Unhealthy for Sensitive Groups",
-                3 => "Unhealthy",
-                4 => "Very Unhealthy",
-                5 => "Hazardous",
+                1 => "Good",
+                2 => "Moderate",
+                3 => "Unhealthy for Sensitive Groups",
+                4 => "Unhealthy",
+                5 => "Very Unhealthy",
+                6 => "Hazardous",
                 _ => "Unknown"
             };
         }
