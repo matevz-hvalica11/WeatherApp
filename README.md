@@ -4,7 +4,7 @@ A fully featured, real-time weather application built with ASP.NET Core MVC, Wea
 
 This project began as an internship assignment at Business Solutions, but quickly evolved into a complete, production-capable weather platform — designed, expanded, and engineered with real-world software development principles.
 
-# 🚀 Project Vision
+## 🚀 Project Vision
 
 What started as a simple “display the temperature” task transformed into a full weather system with forecasting, interactivity, UI theming, geolocation, historical weather lookup, and cloud deployment.
 
