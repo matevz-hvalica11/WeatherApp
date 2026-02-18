@@ -1,0 +1,65 @@
+@model MyWeatherApp_Deployed.Models.WeatherHistoryModel
+@{
+    ViewData["Title"] = "Historical Weather";
+}
+
+<div class="history-container fade-in">
+
+    <!-- Header -->
+    <div class="header-block">
+        <h1 class="city-title">@Model.City</h1>
+        <h3 class="date-title">@Model.Date.ToString("yyyy-MM-dd")</h3>
+    </div>
+
+    <!-- Daily Summary -->
+    <div class="summary-card history-glass animated-card">
+        <h2 class="section-title">Daily Summary</h2>
+
+        <div class="summary-grid">
+            <div class="summary-item">
+                <span class="label">Avg Temp</span>
+                <span class="value temp">@Model.AvgTempC °C</span>
+            </div>
+
+            <div class="summary-item">
+                <span class="label">Max Temp</span>
+                <span class="value temp hot">@Model.MaxTempC °C</span>
+            </div>
+
+            <div class="summary-item">
+                <span class="label">Min Temp</span>
+                <span class="value temp cold">@Model.MinTempC °C</span>
+            </div>
+
+            <div class="summary-item">
+                <span class="label">Humidity</span>
+                <span class="value">@Model.AvgHumidity %</span>
+            </div>
+
+            <div class="summary-item">
+                <span class="label">Precipitation</span>
+                <span class="value">@Model.TotalPrecipMm mm</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Hourly Breakdown -->
+    <h2 class="section-title mt-5 mb-3 text-center fade-in-delayed">Hourly Breakdown</h2>
+
+    <div class="hourly-grid">
+        @foreach (var hour in Model.Hourly)
+        {
+            <div class="hour-card history-glass animated-card">
+                <div class="hour-time">@hour.Time.Substring(11)</div>
+
+                <div class="hour-temp temp">@hour.TempC °C</div>
+
+                <div class="mini-metrics">
+                    <span>💧 @hour.Humidity %</span>
+                    <span>🌧 @hour.PrecipMm mm</span>
+                </div>
+            </div>    
+        }
+    </div>
