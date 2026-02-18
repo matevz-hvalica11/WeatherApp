@@ -112,11 +112,11 @@ Continuous deployment
 
 Production stability
 
-# 🔗 Live App:
+## 🔗 Live App:
 https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
 (for the best viewing experience, keep browser zoom at 100%)
 
-# 🖼️ Credits
+## 🖼️ Credits
 
 Weather Icons: Erik Flowers
 
@@ -124,7 +124,7 @@ Map Framework: Leaflet.js
 
 Weather Data: WeatherAPI.com
 
-# 🔄 Project Status
+## 🔄 Project Status
 
 Actively developed.
 New features, UI updates, and performance improvements continue to be added.
