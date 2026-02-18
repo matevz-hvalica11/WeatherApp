@@ -1,10 +1,10 @@
-🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
+##🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
 
 A fully featured, real-time weather application built with ASP.NET Core MVC, WeatherAPI, and Leaflet.js, developed in Visual Studio 2022 and deployed on Microsoft Azure App Service.
 
 This project began as an internship assignment at Business Solutions, but quickly evolved into a complete, production-capable weather platform — designed, expanded, and engineered with real-world software development principles.
 
-🚀 Project Vision
+##🚀 Project Vision
 
 What started as a simple “display the temperature” task transformed into a full weather system with forecasting, interactivity, UI theming, geolocation, historical weather lookup, and cloud deployment.
 
@@ -21,8 +21,9 @@ Real deployment pipelines
 Software engineering best practices
 Perfect for both real use and diploma documentation.
 
-✨ Features
-🌤️ Current Weather + Forecast
+##✨ Features
+
+##🌤️ Current Weather + Forecast
 
 Real-time weather data
 
@@ -30,7 +31,7 @@ Real-time weather data
 
 3-day extended forecast
 
-📊 Detailed Weather Metrics
+##📊 Detailed Weather Metrics
 
 UV Index
 
@@ -44,7 +45,7 @@ Precipitation
 
 Air Quality Index (AQI)
 
-🎨 UI & UX Enhancements
+##🎨 UI & UX Enhancements
 
 Apple-Weather-style layout & animations
 
@@ -58,7 +59,7 @@ Light / Dark theme toggle
 
 °C / °F temperature switching
 
-🗺️ Interactive Map
+##🗺️ Interactive Map
 
 Integrated Leaflet.js
 
@@ -66,13 +67,13 @@ Pan, zoom, click anywhere to load weather for that location
 
 Theme-aware map tiles (light/dark mode)
 
-📍 Geolocation
+##📍 Geolocation
 
 Automatic location detection on first visit
 
 Falls back gracefully if permission is denied
 
-🔗 Sharing & Convenience
+##🔗 Sharing & Convenience
 
 One-click weather sharing
 
@@ -82,7 +83,7 @@ Automatic refresh every 5 minutes
 
 Saved locations system (localStorage)
 
-🕰️ 🌡️ NEW: Historical Weather Lookup
+##🕰️ 🌡️ NEW: Historical Weather Lookup
 
 A complete weather history feature with:
 
@@ -100,7 +101,7 @@ Azure-compatible routing and deployment setup
 
 This feature is fully implemented and production-ready.
 
-☁️ Cloud Hosting
+##☁️ Cloud Hosting
 
 The entire application is deployed on Azure App Service, ensuring:
 
@@ -112,7 +113,7 @@ Continuous deployment
 
 Production stability
 
-🖼️ Credits
+##🖼️ Credits
 
 Weather Icons: Erik Flowers
 
@@ -120,7 +121,7 @@ Map Framework: Leaflet.js
 
 Weather Data: WeatherAPI.com
 
-🔄 Project Status
+##🔄 Project Status
 
 Actively developed.
 New features, UI updates, and performance improvements continue to be added.
