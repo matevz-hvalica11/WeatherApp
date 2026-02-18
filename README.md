@@ -113,6 +113,10 @@ Continuous deployment
 
 Production stability
 
+# 🔗 Live App:
+https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
+(for the best viewing experience, keep browser zoom at 100%)
+
 # 🖼️ Credits
 
 Weather Icons: Erik Flowers
