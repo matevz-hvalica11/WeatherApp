@@ -10,115 +10,115 @@ What started as a simple “display the temperature” task transformed into a f
 
 This app demonstrates:
 
-API integration
+✔ API integration
 
-Frontend + backend synergy
+✔ Frontend + backend synergy
 
-Modern UI/UX design
+✔ Modern UI/UX design
 
-Real deployment pipelines
+✔ Real deployment pipelines
 
-Software engineering
+✔ Software engineering
 
 # ✨ Features
 
 ## 🌤️ Current Weather + Forecast
 
-Real-time weather data
+✔ Real-time weather data
 
-24-hour hourly forecast
+✔ 24-hour hourly forecast
 
-3-day extended forecast
+✔ 3-day extended forecast
 
 ## 📊 Detailed Weather Metrics
 
-UV Index
+✔ UV Index
 
-Wind Speed
+✔ Wind Speed
 
-Humidity
+✔ Humidity
 
-Dew Point
+✔ Dew Point
 
-Precipitation
+✔ Precipitation
 
-Air Quality Index (AQI)
+✔ Air Quality Index (AQI)
 
 ## 🎨 UI & UX Enhancements
 
-Apple-Weather-style layout & animations
+✔ Apple-Weather-style layout & animations
 
-Weather-based dynamic backgrounds
+✔ Weather-based dynamic backgrounds
 
-Smooth glassmorphism cards
+✔ Smooth glassmorphism cards
 
-Real-time digital clock
+✔ Real-time digital clock
 
-Light / Dark theme toggle
+✔ Light / Dark theme toggle
 
-°C / °F temperature switching
+✔ °C / °F temperature switching
 
 ## 🗺️ Interactive Map
 
-Integrated Leaflet.js
+✔ Integrated Leaflet.js
 
-Pan, zoom, click anywhere to load weather for that location
+✔ Pan, zoom, click anywhere to load weather for that location
 
-Theme-aware map tiles (light/dark mode)
+✔ Theme-aware map tiles (light/dark mode)
 
 ## 📍 Geolocation
 
-Automatic location detection on first visit
+✔ Automatic location detection on first visit
 
-Falls back gracefully if permission is denied
+✔ Falls back gracefully if permission is denied
 
 ## 🔗 Sharing & Convenience
 
-One-click weather sharing
+✔ One-click weather sharing
 
-Manual refresh
+✔ Manual refresh
 
-Automatic refresh every 5 minutes
+✔ Automatic refresh every 5 minutes
 
-Saved locations system (localStorage)
+✔ Saved locations system (localStorage)
 
 ## 🕰️ 🌡️ NEW: Historical Weather Lookup
 
-A complete weather history feature with:
+✔ A complete weather history feature with:
 
-City & date search
+✔ City & date search
 
-Daily summary
+✔ Daily summary
 
-Hour-by-hour breakdown
+✔ Hour-by-hour breakdown
 
-Apple-style animated cards
+✔ Apple-style animated cards
 
-Full WeatherAPI Historic endpoint integration
+✔ Full WeatherAPI Historic endpoint integration
 
-Azure-compatible routing and deployment setup
+✔ Azure-compatible routing and deployment setup
 
 This feature is fully implemented and production-ready.
 
 ## 🚨 NEW: Full Weather Alerts System
 
-A complete, production-grade alert integration:
+✔ A complete, production-grade alert integration:
 
-Automatic WeatherAPI alert detection
+✔ Automatic WeatherAPI alert detection
 
-Multiple alerts supported simultaneously
+✔ Multiple alerts supported simultaneously
 
-Clean alert banner with hover animations
+✔ Clean alert banner with hover animations
 
-Detailed alert modal with headline, severity, timeline, and full description
+✔ Detailed alert modal with headline, severity, timeline, and full description
 
-Localized alert text
+✔ Localized alert text
 
-Apple Weather–inspired design with glassmorphism and smooth transitions
+✔ Apple Weather–inspired design with glassmorphism and smooth transitions
 
-Works in both light and dark mode
+✔ Works in both light and dark mode
 
-Fully integrated backend model + controller logic
+✔ Fully integrated backend model + controller logic
 
 This turns the app into a real-world, safety-aware weather tool — not just a temperature display.
 
@@ -126,13 +126,13 @@ This turns the app into a real-world, safety-aware weather tool — not just a t
 
 The entire application is deployed on Azure App Service, ensuring:
 
-Global accessibility
+✔ Global accessibility
 
-SSL (HTTPS)
+✔ SSL (HTTPS)
 
-Continuous deployment
+✔ Continuous deployment
 
-Production stability
+✔ Production stability
 
 ## 🔗 Live App:
 https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
