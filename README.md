@@ -84,7 +84,7 @@ This app demonstrates:
 
 ## 🕰️ 🌡️ NEW: Historical Weather Lookup
 
-✔ A complete weather history feature with:
+A complete weather history feature with:
 
 ✔ City & date search
 
@@ -102,7 +102,7 @@ This feature is fully implemented and production-ready.
 
 ## 🚨 NEW: Full Weather Alerts System
 
-✔ A complete, production-grade alert integration:
+A complete, production-grade alert integration:
 
 ✔ Automatic WeatherAPI alert detection
 
