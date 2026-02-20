@@ -100,6 +100,21 @@ Azure-compatible routing and deployment setup
 
 This feature is fully implemented and production-ready.
 
+## 🚨 NEW: Full Weather Alerts System
+
+A complete, production-grade alert integration:
+
+✔ Automatic WeatherAPI alert detection
+✔ Multiple alerts supported simultaneously
+✔ Clean alert banner with hover animations
+✔ Detailed alert modal with headline, severity, timeline, and full description
+✔ Localized alert text (e.g., ARSO-style Slovenian alerts)
+✔ Apple Weather–inspired design with glassmorphism and smooth transitions
+✔ Works in both light and dark mode
+✔ Fully integrated backend model + controller logic
+
+This turns the app into a real-world, safety-aware weather tool — not just a temperature display.
+
 ## ☁️ Cloud Hosting
 
 The entire application is deployed on Azure App Service, ensuring:
