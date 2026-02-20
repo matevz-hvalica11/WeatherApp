@@ -26,6 +26,7 @@ namespace MyWeatherApp_Deployed.Models
 
         public List<DailyForecast> Forecasts { get; set; } = new();
         public List<HourlyForecast> Hourly { get; set; } = new();
+        public List<WeatherAlert> Alerts { get; set; } = new();
         public List<double> MinTemp { get; set; } = new List<double>();
         public List<double> MaxTemp { get; set; } = new List<double>();
         public string FeelsLike => $"{FeelsLikeTemperature:0.#}";
@@ -81,7 +82,7 @@ namespace MyWeatherApp_Deployed.Models
 
         }
 
-        public class  AirQualityData
+        public class AirQualityData
         {
             public double CO { get; set; }
             public double NO2 { get; set; }
@@ -92,6 +93,16 @@ namespace MyWeatherApp_Deployed.Models
             public int UsEpaIndex { get; set; }
             public int GbDefraIndex { get; set; }
             public string Category { get; set; } = "Unknown";
+        }
+
+        public class WeatherAlert
+        {
+            public string Headline { get; set; } = "";
+            public string Severity { get; set; } = "";
+            public string Event { get; set; } = "";
+            public string Description { get; set; } = "";
+            public string Effective { get; set; } = "";
+            public string Expires { get; set; } = "";
         }
 
 
