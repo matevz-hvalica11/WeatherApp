@@ -48,7 +48,8 @@ namespace MyWeatherApp_Deployed.Controllers
                 });
             }
 
-            string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes";
+            string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={query}&days=3&lang=sl&aqi=yes&alerts=yes";
+
 
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync(url);
@@ -144,6 +145,24 @@ namespace MyWeatherApp_Deployed.Controllers
                     MinTemp = (double?)day["day"]?[unit == "F" ? "mintemp_f" : "mintemp_c"] ?? 0,
                     TotalPrecipitation = (double?)day["day"]?[unit == "F" ? "totalprecip_in" : "totalprecip_mm"] ?? 0
                 });
+            }
+
+            // Weather alerts
+            var alertsArray = data["alerts"]?["alert"];
+            if (alertsArray != null)
+            {
+                foreach (var alert in alertsArray)
+                {
+                    model.Alerts.Add(new WeatherModel.WeatherAlert
+                    {
+                        Headline = alert["headline"]?.ToString() ?? "",
+                        Severity = alert["severity"]?.ToString() ?? "",
+                        Event = alert["event"]?.ToString() ?? "",
+                        Description = alert["desc"]?.ToString() ?? "",
+                        Effective = alert["effective"]?.ToString() ?? "",
+                        Expires = alert["expires"]?.ToString() ?? ""
+                    });
+                }
             }
 
             // Leaflet.js
