@@ -65,10 +65,23 @@ body.dark-mode {
     color: #f1f5f9 !important;
 }
 
-    /* ZERO transparent background BS */
-    body.dark-mode *:not(body):not(html) {
-        background-color: transparent !important;
-        background-image: none !important;
+    /* Fix global background for dark mode */
+    html.dark-mode,
+    body.dark-mode {
+        background-color: #0a0f1e !important;
+    }
+
+
+    /* Make all generic containers follow dark mode */
+    body.dark-mode .container,
+    body.dark-mode .section,
+    body.dark-mode .content-wrapper,
+    body.dark-mode .row,
+    body.dark-mode .col,
+    body.dark-mode .forecast-section,
+    body.dark-mode .metrics.section,
+    body.dark-mode .hourly-section {
+        background-color: #0a0f1e !important;
     }
 
     /* Cards should NOT be transparent */
@@ -434,4 +447,40 @@ body.dark-mode .glass {
     margin-top: 8px;
     font-size: 0.9rem;
     opacity: 0.8;
+}
+
+
+/* Apple Alert Weather Styling */
+.alert-banner {
+    background: rgba(255, 100, 100, 0.2);
+    border-left: 4px solid #ff4d4d;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(12px);
+    transition:
+        transform 0.35s cubic-bezier(.19,1.22,1),
+        box-shadow 0.35s cubic-bezier(.19,1,.22,1),
+        background-color 0.3s ease;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.alert-banner:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    background-color: rgba(255, 230, 180, 0.55);
+}
+
+
+body.dark-mode .alert-banner:hover {
+    background-color: rgba(255, 200, 150, 0.12);
+    box-shadow: 0 15px 38px rgba(0, 0, 0, 0.5);
+}
+
+.alert-box {
+    margin-top: 12px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.25);
 }
