@@ -487,6 +487,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // Weather Alert logic
+    if (window.weatherAlerts && window.weatherAlerts.length > 0) {
+        const first = window.weatherAlerts[0];
+        const body = document.getElementById("weatherAlertModalBody");
+
+        body.innerHTML = `
+            <h3>${first.event}</h3>
+            <p>${first.description}</p>
+            <p><strong>Severity:</strong> ${first.severity}</p>
+            <p><strong>From:</strong> ${first.effective}</p>
+            <p><strong>To:</strong> ${first.expires}</p>
+        `;
+
+        const modalEl = document.getElementById("weatherAlertModal");
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
+
+
     // Weather Graphs
     function createWeatherCharts() {
         const json = document.getElementById("weatherChartData");
