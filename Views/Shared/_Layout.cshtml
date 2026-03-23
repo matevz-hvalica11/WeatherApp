@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -37,6 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="History" asp-action="Index">History</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -59,21 +63,22 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 
-    <div class="modal fade" id="weatherAlertModal" tabindex ="-1">
+    <div class="modal fade" id="weatherAlertModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background:#1e293b; color:white;">
                 <div class="modal-header">
                     <h5 class="modal-title">⚠️ Weather Alert</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div>
+                    <div class="modal-body" id="weatherAlertModalBody">
                     </div>
-                    <div>
-                        <div class="modal-body" id="weatherAlertModalBody">
-                        </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
 </body>
