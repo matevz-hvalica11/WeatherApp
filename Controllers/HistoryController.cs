@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using MyWeatherApp_Deployed.Models;
+using MyWeatherApp.Models;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 
-namespace MyWeatherApp_Deployed.Controllers
+namespace MyWeatherApp.Controllers
 {
     public class HistoryController : Controller
     {
