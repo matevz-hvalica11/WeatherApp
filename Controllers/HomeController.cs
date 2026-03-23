@@ -1,6 +1,7 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MyWeatherApp.Models;
+using System.Diagnostics;
+using WeatherApp.Models;
 
 namespace MyWeatherApp.Controllers;
 
