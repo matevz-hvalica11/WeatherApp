@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace MyWeatherApp_Deployed.Models
+namespace MyWeatherApp.Models
 {
     public class WeatherHistoryModel
     {
         public string City { get; set; } = "";
         public DateTime Date { get; set; }
 
-        public double AvgTempC {  get; set; }
+        public double AvgTempC { get; set; }
         public double MaxTempC { get; set; }
         public double MinTempC { get; set; }
 
