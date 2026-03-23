@@ -1,4 +1,4 @@
-@model MyWeatherApp_Deployed.Models.WeatherModel
+@model MyWeatherApp.Models.WeatherModel
 @{
     ViewData["Title"] = "Weather Dashboard";
 
@@ -243,11 +243,6 @@
                  data-category="@Model.AirQuality.Category">
                 @Model.AirQuality.UsEpaIndex (@Model.AirQuality.Category)
             </div>
-            <small>
-                PM2.5 @Model.AirQuality.PM2_5.ToString("0.#")
-                • PM10 @Model.AirQuality.PM10.ToString("0.#")
-                • O₃ @Model.AirQuality.O3.ToString("0.#")
-            </small>
         </div>
     </div>
 </div>
