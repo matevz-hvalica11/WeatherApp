@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
-using MyWeatherApp_Deployed.Models;
+using MyWeatherApp.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace MyWeatherApp_Deployed.Controllers
+namespace MyWeatherApp.Controllers
 {
     public class WeatherController : Controller
     {
