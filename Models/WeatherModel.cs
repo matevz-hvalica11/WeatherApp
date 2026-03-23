@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MyWeatherApp_Deployed.Models
+namespace MyWeatherApp.Models
 {
     public class WeatherModel
     {
