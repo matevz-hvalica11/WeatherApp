@@ -247,6 +247,32 @@
     </div>
 </div>
 
+@if (Model.Alerts != null && Model.Alerts.Any())
+    {
+        <script>
+            window.weatherAlerts = @Html.Raw(Json.Serialize(Model.Alerts));
+        </script>
+
+        <div class="alert-banner">
+            <h4>Weather Alerts</h4>
+
+            @foreach (var alert in Model.Alerts)
+            {
+                <div class="alert-box">
+                    <h5>@alert.Event</h5>
+                    <p>@alert.Description</p>
+                    <small>From @alert.Effective to @alert.Expires</small>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center text-muted mb-4">
+            <p>No active weather alerts.</p>
+        </div>
+    }
+
     <!-- Weather Map -->
     <div class="row justify-content-center mb-5">
         <div class="col-12 col-lg-10">
