@@ -1,3 +1,8 @@
+
+<img width="1893" height="914" alt="Posnetek zaslona 2026-04-07 095342" src="https://github.com/user-attachments/assets/b2cf8e8c-c9b3-4a9f-be31-1f2075f94c31" />
+<img width="1894" height="913" alt="Posnetek zaslona 2026-04-07 095353" src="https://github.com/user-attachments/assets/b4b2b04d-6e13-4dac-8148-9bc83d172e5b" />
+<img width="1894" height="915" alt="Posnetek zaslona 2026-04-07 095402" src="https://github.com/user-attachments/assets/0b0c9e47-180d-4aba-ab1d-878beb4215a6" />
+
 # 🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
 
 A fully featured, real-time weather application built with ASP.NET Core MVC, WeatherAPI, and Leaflet.js, developed in Visual Studio 2026 and deployed on Microsoft Azure App Service.
