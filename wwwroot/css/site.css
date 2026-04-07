@@ -15,9 +15,10 @@
 html, body {
     height: 100%;
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background-color: #f7d49c; /* default */
+    background-color: #f7d49c;
     color: #1f2937;
-    transition: background-color 0.8s cubic-bezier(.4,0,2,1) color 0.4s ease;
+    transition: background-color 1.4s cubic-bezier(.4,0,.2,1), 
+                color 0.4s ease;
 }
 
 /* Weather icon font restore */
@@ -26,7 +27,8 @@ html, body {
 }
 
 
-/* --- Modern Weather Backgrounds (Light Mode) --- */
+/* --- Weather Backgrounds (Light Mode) --- */
+/* All backgrounds now transitions smoothly via backgrounds-color on body */
 
 .default-bg {
     background: #f3f1ec !important;
@@ -49,7 +51,7 @@ html, body {
 }
 
 .foggy-bg {
-    background: #e2e5e7 !important;
+    background: #e2e5e7 !important; 
 }
 
 
@@ -60,24 +62,21 @@ html, body {
 }
 
 
-
-
     /* ─────────────────────────────────────────────
    DARK MODE — CLEAN, SOLID
 ────────────────────────────────────────────── */
     body.dark-mode {
         background-color: #0a0f1e !important;
         color: #f1f5f9 !important;
+        transition: background-color 1.4s cubic-bezier(.4,0,.2,1),
+                    color 0.4s ease;
     }
 
-    /* Fix global background for dark mode */
     html.dark-mode,
     body.dark-mode {
         background-color: #0a0f1e !important;
     }
 
-
-        /* Make all generic containers follow dark mode */
         body.dark-mode .container,
         body.dark-mode .section,
         body.dark-mode .content-wrapper,
@@ -89,7 +88,6 @@ html, body {
             background-color: #0a0f1e !important;
         }
 
-        /* Cards should NOT be transparent */
         body.dark-mode .card,
         body.dark-mode .forecast-card,
         body.dark-mode .hourly-card,
@@ -100,7 +98,6 @@ html, body {
             box-shadow: none !important;
         }
 
-        /* Inputs */
         body.dark-mode .form-control {
             background-color: #1f2937 !important;
             border-color: #374151 !important;
@@ -111,7 +108,6 @@ html, body {
                 color: #94a3b8 !important;
             }
 
-        /* Buttons */
         body.dark-mode .btn {
             background-color: #334155 !important;
             border-color: #475569 !important;
@@ -122,13 +118,11 @@ html, body {
                 background-color: #475569 !important;
             }
 
-        /* Icons */
         body.dark-mode .weather-icon,
         body.dark-mode .card-icon {
             color: #38bdf8 !important;
         }
 
-        /* Map */
         body.dark-mode #weather-map,
         body.dark-mode .leaflet-container {
             background-color: #0a0f1e !important;
@@ -144,11 +138,12 @@ html, body {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    transition: 0.3s ease;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
 }
 
     .glass:hover {
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.28);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
 body.dark-mode .glass {
@@ -165,12 +160,13 @@ body.dark-mode .glass {
     font-size: 1.1rem;
     border-radius: 8px;
     border: 1px solid #cbd5e1;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-    .form-control:focus {
-        border-color: #38bdf8;
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
-    }
+.form-control:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+}
 
 
 /* ─────────────────────────────────────────────
@@ -180,15 +176,21 @@ body.dark-mode .glass {
     padding: 16px 24px;
     font-size: 1.05rem;
     border-radius: 8px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), 
+                background-color 0.2s ease,
+                box-shadow 0.2s ease;
     will-change: transform;
 }
 
-    .btn:hover {
-        transform: translateY(-1px);
-    }
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
 
-/* Primary + Success */
+.btn:active {
+    transform: translateY(0px) scale(0.97);
+}
+
 .btn-primary,
 .btn-success {
     background-color: #38bdf8 !important;
@@ -200,17 +202,16 @@ body.dark-mode .glass {
     background-color: #16a34a !important;
 }
 
-/* Outline */
 .btn-outline-primary {
     border: 2px solid #38bdf8 !important;
     color: #38bdf8 !important;
     background: transparent !important;
 }
 
-    .btn-outline-primary:hover {
-        background: #38bdf8 !important;
-        color: #fff !important;
-    }
+.btn-outline-primary:hover {
+    background: #38bdf8 !important;
+    color: #fff !important
+}
 
 
 /* ─────────────────────────────────────────────
@@ -227,27 +228,37 @@ body.dark-mode .glass {
 .weather-icon {
     font-size: 2.8rem;
     color: #38bdf8;
+    transition: transform 0.4s cubic-bezier(.34, 1.56,.64,1);
+}
+
+.weather-icon:hover {
+    transform: scale(1.15) rotate(-5deg);
 }
 
 .hourly-card,
 .forecast-card,
 .metric-card,
 .card {
-    transition: transform 0.35s cubic-bezier(.22,1.36,1),
-                box-shadow 0.35s cubic-bezier(.22,1,.36,1),
-                background-color 0.25s ease;
-
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), 
+                box-shadow 0.35s cubic-bezier(.22,1,.36,1), 
+                background-color 0.3s ease;
     will-change: transform;
     transform: translateZ(0);
 }
-
 
     .hourly-card:hover,
     .forecast-card:hover,
     .metric-card:hover,
     .card:hover {
-        transform: translateY(-6px) scale(1.015);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .hourly-card:active,
+    .forecast-card:active,
+    .metric-card:active,
+    .card:active {
+        transform: translateY(-2px) scale(0.99);
     }
 
 /* ─────────────────────────────────────────────
@@ -257,6 +268,20 @@ body.dark-mode .glass {
     display: flex;
     gap: 15px;
     overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Subtle scrollbar styling */
+.hourly-forecast::-webkit-scrollbar {
+    height: 4px;
+}
+.hourly-forecast::-webkit-scrollbar-track {
+    background: transparent;
+}
+.hourly-forecast::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.4);
+    border-radius: 4px;
 }
 
 .hourly-card {
@@ -285,6 +310,13 @@ body.dark-mode .glass {
 #weather-map,
 .leaflet-container {
     background: transparent !important;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+#weather-map:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 
@@ -298,15 +330,15 @@ body.dark-mode .glass {
     pointer-events: none;
 }
 
-
 #weather-overlay {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: -1;
     background: transparent !important;
+    transition: background 1.4s cubic-bezier(.4,0,.2,1),
+                opacity 1.2s ease;
 }
-
 
 /* Fog */
 .fog-effect {
@@ -330,16 +362,15 @@ body.dark-mode .glass {
 }
 
 
-/* Apple Weather Styling - History Page */
-
-
+/* ─────────────────────────────────────────────
+   HISTORY PAGE
+────────────────────────────────────────────── */
 .history-container {
     max-width: 1000px;
     margin: auto;
     padding-bottom: 40px;
 }
 
-/* Smooth fade animations */
 .fade-in {
     opacity: 0;
     transform: translateY(10px);
@@ -353,18 +384,17 @@ body.dark-mode .glass {
 }
 
 @keyframes fadeIn {
-    to {
+    from {
         opacity: 0;
         transform: translateY(8px);
     }
-    100% {
+
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-
-/* Header styles */
 .header-block {
     text-align: center;
     margin-bottom: 30px;
@@ -380,8 +410,6 @@ body.dark-mode .glass {
     opacity: 0.75;
 }
 
-
-/* Dedicated GLASS effect for history elements */
 .history-glass {
     backdrop-filter: blur(18px) saturate(180%);
     background: rgba(255, 255, 255, 0.25);
@@ -391,8 +419,6 @@ body.dark-mode .glass {
     border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-
-/* Animated elevation */
 .animated-card {
     animation: floatUp 0.6s ease-out;
 }
@@ -409,8 +435,6 @@ body.dark-mode .glass {
     }
 }
 
-
-/* Summary Grid */
 .summary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -434,25 +458,22 @@ body.dark-mode .glass {
         font-weight: 600;
     }
 
-
-/* Temp color coding */
 .temp {
     transition: color 0.4s ease;
 }
 
-    .temp.hot {
-        color: #f7fb39;
-    }
+.temp.hot {
+    color: #f7fb39;
+}
 
-    .temp.cold {
-        color: #4da6ff;
-    }
+.temp.cold {
+    color: #4da6ff;
+}
 
 .temp-mild {
     color: #f1c40f;
 }
 
-/* Hourly Cards Grid */
 .hourly-grid {
     margin-top: 20px;
     display: grid;
@@ -467,12 +488,8 @@ body.dark-mode .glass {
 }
 
 .hour-time {
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.hour-time {
     font-size: 1.4rem;
+    font-weight: 700;
     margin-top: 5px;
 }
 
@@ -482,8 +499,6 @@ body.dark-mode .glass {
     opacity: 0.8;
 }
 
-
-/* Apple Alert Weather Styling */
 .alert-banner {
     background: rgba(255, 100, 100, 0.2);
     border-left: 4px solid #ff4d4d;
@@ -491,13 +506,11 @@ body.dark-mode .glass {
     padding: 20px;
     margin-bottom: 20px;
     backdrop-filter: blur(12px);
-    transition: transform 0.3s ease-out,
-                box-shadow 0.3s ease-out,
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), 
+                box-shadow 0.3s ease-out, 
                 background-color 0.25s ease;
-    
     will-change: transform;
     cursor: pointer;
-    border-radius: 12px;
 }
 
     .alert-banner:hover {
@@ -505,7 +518,6 @@ body.dark-mode .glass {
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
         background-color: rgba(255, 230, 180, 0.55);
     }
-
 
 body.dark-mode .alert-banner:hover {
     background-color: rgba(255, 200, 150, 0.12);
