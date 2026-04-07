@@ -74,18 +74,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function clearWeatherBackgrounds() {
         document.body.classList.remove(...BG_CLASSES);
+        document.documentElement.classList.remove(...BG_CLASSES);
     }
 
     function applyWeatherBackground(desc) {
-        // Only in light mode
         if (!desc) return;
         if (document.body.classList.contains("dark-mode")) return;
 
-        clearWeatherBackgrounds();
         const bgClass = mapConditionToClass(desc);
-        document.body.classList.add(bgClass);
-        document.documentElement.classList.add(bgClass);
-        console.log(`🌤️ Background set: ${bgClass} (from "${desc}")`);
+        const current = BG_CLASSES.find(c => document.body.classList.contains(c));
+
+        if (current === bgClass) return;
+
+        clearWeatherBackgrounds();
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.body.classList.add(bgClass);
+                document.documentElement.classList.add(bgClass);
+                console.log(`🌤️ Background set: ${bgClass} (from "${desc}")`);
+            })
+        })
     }
 
     function applyWeatherOverlay(desc) {
