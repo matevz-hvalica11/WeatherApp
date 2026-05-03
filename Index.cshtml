@@ -1,0 +1,241 @@
+@model MyWeatherApp_Deployed.Models.WeatherModel
+@{
+    ViewData["Title"] = "Weather Dashboard";
+
+    // Prepare both-unit values so JS can toggle instantly without reload
+    // Current temperature
+    double tempC = Model.TempUnit == "C" ? Model.CurrentTemperature : (Model.CurrentTemperature - 32.0) * 5.0 / 9.0;
+    double tempF = Model.TempUnit == "F" ? Model.CurrentTemperature : (Model.CurrentTemperature * 9.0 / 5.0) + 32.0;
+
+    // Feels like (optional for instant toggle - keeping display static as before)
+    double feelsC = Model.TempUnit == "C" ? Model.FeelsLikeTemperature : (Model.FeelsLikeTemperature - 32.0) * 5.0 / 9.0;
+    double feelsF = Model.TempUnit == "F" ? Model.FeelsLikeTemperature : (Model.FeelsLikeTemperature * 9.0 / 5.0) + 32.0;
+
+    // Dew point (using your property name from earlier message)
+    double dewSrc = Model.DewPointTemperature;
+    double dewC = Model.TempUnit == "C" ? dewSrc : (dewSrc - 32.0) * 5.0 / 9.0;
+    double dewF = Model.TempUnit == "F" ? dewSrc : (dewSrc * 9.0 / 5.0) + 32.0;
+
+    // Precipitation: we need both mm and in for toggling
+    // Your controller sets CurrentPrecipitation in the current unit; compute the other
+    double precipMm = Model.TempUnit == "F" ? Model.CurrentPrecipitation * 25.4 : Model.CurrentPrecipitation;
+    double precipIn = Model.TempUnit == "F" ? Model.CurrentPrecipitation : Model.CurrentPrecipitation / 25.4;
+
+    string currentUnit = Model.TempUnit; // "C" or "F"
+}
+
+<input type="hidden" id="mapLat" value="@Model.Latitude" />
+<input type="hidden" id="mapLon" value="@Model.Longitude" />
+<input type="hidden" id="serverUnit" value="@Model.TempUnit" />
+
+<div class="main-content">
+
+    <!-- Header Section -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <h2 class="fw-bold">@Model.CityName</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-end mt-3 mt-md-0">
+            <div class="d-flex flex-wrap justify-content-md-end gap-3">
+                <button id="refreshButton" class="btn btn-outline-primary px-4 py-2">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button id="themeToggleButton" class="btn btn-outline-dark px-4 py-2">
+                    <i class="fas fa-moon"></i> Dark Theme
+                </button>
+                <button id="tempToggleButton" class="btn btn-outline-primary px-4 py-2">
+                    Toggle °C/°F
+                </button>
+                <button id="shareButton" class="btn btn-outline-secondary px-4 py-2">
+                    Share <i class="fas fa-share-alt ms-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar & City Dropdown -->
+    <div class="row mb-5 justify-content-center gx-3 gy-3">
+        <div class="col-12 col-md-auto">
+            <form method="get" asp-action="Index" asp-controller="Weather" class="d-flex gap-3">
+                <input type="text" name="city" class="form-control" placeholder="Enter city..." />
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+            </form>
+        </div>
+        <div class="col-12 col-md-auto">
+            <select id="citySelect" class="form-control">
+                <option value="">--Choose city--</option>
+                <option value="Amsterdam">Amsterdam</option>
+                <option value="Atlanta">Atlanta</option>
+                <option value="Baghdad">Baghdad</option>
+                <option value="Beijing">Beijing</option>
+                <option value="Beograd">Beograd</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Boston">Boston</option>
+                <option value="Bratislava">Bratislava</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Cairo">Cairo</option>
+                <option value="Chicago">Chicago</option>
+                <option value="Dubai">Dubai</option>
+                <option value="Doha">Doha</option>
+                <option value="Havana">Havana</option>
+                <option value="Houston">Houston</option>
+                <option value="Istanbul">Istanbul</option>
+                <option value="Jerusalem">Jerusalem</option>
+                <option value="Kingston">Kingston</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Kyiv">Kyiv</option>
+                <option value="Ljubljana">Ljubljana</option>
+                <option value="London">London</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Madrid">Madrid</option>
+                <option value="Miami">Miami</option>
+                <option value="Moscow">Moscow</option>
+                <option value="Nassau">Nassau</option>
+                <option value="New Delhi">New Delhi</option>
+                <option value="New York">New York</option>
+                <option value="Paris">Paris</option>
+                <option value="Philadelphia">Philadelphia</option>
+                <option value="Prague">Prague</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Rome">Rome</option>
+                <option value="Sarajevo">Sarajevo</option>
+                <option value="Santo Domingo">Santo Domingo</option>
+                <option value="Shanghai">Shanghai</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Sydney">Sydney</option>
+                <option value="Tokyo">Tokyo</option>
+                <option value="Vienna">Vienna</option>
+                <option value="Warsaw">Warsaw</option>
+                <option value="Zagreb">Zagreb</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Real-time Clock -->
+    <div class="text-center mb-4">
+        <span id="clock" class="fs-4 fw-bold"></span>
+    </div>
+
+    <!-- Current Weather Card -->
+     <div class="card shadow-sm text-center mb-5 py-5 px-3">
+        <i class="@Model.CurrentIconClass weather-icon mb-3"></i>
+        <h1 class="display-4 mb-2">@Model.CurrentTemperature &deg;@Model.TempUnit</h1>
+        <p class="lead mb-2">@Model.CurrentCondition</p>
+        <small>Feels like: @Model.FeelsLikeTemperature &deg;@Model.TempUnit</small>
+    </div>
+
+    <!-- Condition text used by JS for dynamic backgrounds -->
+        <p id="weather-condition" class="lead mb-2">@Model.CurrentCondition</p>
+
+
+    <!-- Hourly Forecast -->
+    <div class="hourly-forecast-container overflow-auto mb-5 pb-2">
+        <div class="d-flex hourly-forecast gap-4 px-2">
+            @foreach (var hour in Model.Hourly.Take(24))
+            {
+                <div class="hourly-card text-center min-width-hour px-3 py-2">
+                    <div class="fw-bold mb-1">@hour.Time</div>
+                    <i class="@hour.IconClass weather-icon mb-1"></i>
+                    <div>@hour.Temperature &deg;@Model.TempUnit</div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- 3-Day Forecast -->
+    <div class="row justify-content-center g-4 mb-5">
+        @foreach (var forecast in Model.Forecasts)
+        {
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card forecast-card h-100 text-center p-4">
+                    <h5 class="card-title">@forecast.Date</h5>
+                    <i class="@forecast.IconClass weather-icon card-icon mb-3"></i>
+                    <p class="card-text mb-2">@forecast.Description</p>
+                    <p class="card-text fw-bold">
+                        High: @forecast.MaxTemp&deg;<br />
+                        Low: @forecast.MinTemp&deg;
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+
+   <!-- Weather Metrics — row 1 -->
+<div class="row text-center mb-5 g-4">
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">☀️ UV Index</h6>
+            <div class="uv-index">@Model.UVIndex</div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">💨 Wind Speed</h6>
+                <div id="windSpeedValue"
+                     data-kph="@Model.CurrentWindSpeed.ToString("0.#")"
+                     data-mph="@((Model.CurrentWindSpeed * 0.621371).ToString("0.#"))">
+                    @($"{(Model.TempUnit == "F" ? (Model.CurrentWindSpeed * 0.621371) : Model.CurrentWindSpeed):0.#} {(Model.TempUnit == "F" ? "mph" : "km/h")}")
+                </div>
+            </div>
+        </div>
+
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">💧 Humidity</h6>
+            <div>@Model.CurrentHumidity %</div>
+        </div>
+    </div>
+</div>
+
+<!-- Weather Metrics — row 2 (dew point, precipitation, AQI) -->
+<div class="row text-center mb-5 g-4">
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">🌡️ Dew Point</h6>
+            <div id="dewPointValue"
+                 data-c="@dewC.ToString("0.#")"
+                 data-f="@dewF.ToString("0.#")">
+                @($"{(currentUnit == "C" ? dewC : dewF):0.#} °{currentUnit}")
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">🌦️ Precipitation</h6>
+            <div id="precipValue"
+                 data-mm="@precipMm.ToString("0.##")"
+                 data-in="@precipIn.ToString("0.##")">
+                @($"{(currentUnit == "C" ? precipMm : precipIn):0.##} {(currentUnit == "C" ? "mm" : "in")}")
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <h6 class="mb-2">🌫️ Air Quality</h6>
+            <div id="airQualityValue"
+                 data-index="@Model.AirQuality.UsEpaIndex"
+                 data-category="@Model.AirQuality.Category">
+                @Model.AirQuality.UsEpaIndex (@Model.AirQuality.Category)
+            </div>
+            <small>
+                PM2.5 @Model.AirQuality.PM2_5.ToString("0.#")
+                • PM10 @Model.AirQuality.PM10.ToString("0.#")
+                • O₃ @Model.AirQuality.O3.ToString("0.#")
+            </small>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Weather Map -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 col-lg-10">
+            <div id="weather-map" style="height: 80vh; width: 100%;"></div>
+        </div>
+    </div>
+  </div>
+</div>
