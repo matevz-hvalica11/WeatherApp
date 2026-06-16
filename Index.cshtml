@@ -32,6 +32,56 @@
 
 <div class="main-content">
 
+    @if (!string.IsNullOrWhiteSpace(Model.CityName))
+    {
+        <div id="skeletonLoader" class="skeleton-wrapper">
+            <!-- Skeleton current weather card -->
+            <div class="card glass shadow-sm text-center mb-5 py-5 px-3">
+                <div class="skeleton skeleton-temp mx-auto"></div>
+                <div class="skeleton skeleton-text medium mx-auto"></div>
+                <div class="skeleton skeleton-text short mx-auto"></div>
+            </div>
+
+            <!-- Skeleton hourly -->
+            <div class="d-flex gap-4 px-2 mb-5 overflow-hidden">
+                @for (int i = 0; i < 6; i++)
+                {
+                    <div class="skeleton skeleton-hourly"></div>
+                }
+            </div>
+
+            <!-- Skeleton forecast cards -->
+            <div class="row justify-content-center g-4 mb-5">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="skeleton skeleton-card"></div>
+                    </div>
+                }
+            </div>
+
+            <!-- Skeleton metrics row 1 -->
+            <div class="row text-center mb-5 g-4">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-md-4">
+                        <div class="skeleton skeleton-metric"></div>
+                    </div>
+                }
+            </div>
+
+            <!-- Skeleton metrics row 2 -->
+            <div class="row text-center mb-5 g-4">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-md-4">
+                        <div class="skeleton skeleton-metric"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
     <div id="weather-overlay"></div>
 
 
