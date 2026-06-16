@@ -2,41 +2,62 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("✅ site.js loaded");
 
+    // --- Skeleton Loader ---
+    function hideSkeleton() {
+        const skeleton = document.getElementById('skeletonLoader');
+        if (!skeleton) return;
+
+        skeleton.classList.add('hidden');
+
+        setTimeout(() => {
+            skeleton.remove();
+        }, 400);
+    }
+
+    // Hide skeleton once everything is loaded and rendered
+    window.addEventListener('load', () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                hideSkeleton();
+            });
+        });
+    });
+
     // --- Auto Geo Location on first visit
     (function tryAutoGeoLocation() {
-        // Do not auto-locate if user already chose a city or coords
+
+        // Do NOT run geolocation on the History page
+        if (window.location.pathname.toLowerCase().startsWith("/history"))
+            return;
+
         const params = new URLSearchParams(window.location.search);
-        if (params.has("city") || (params.has("lat") && params.has("lon"))) return;
 
-        // Only run once
-        if (localStorage.getItem("geoResolved") === "1") return;
+        if (params.has("city") || (params.has("lat") && params.has("lon")))
+            return;
 
+        // If browser does NOT support geolocation + stop
         if (!navigator.geolocation) {
-            localStorage.setItem("geoResolved", "1");
+            console.warn("❌ Geolocation not supported.");
             return;
         }
 
+        // If browser DOES support it => request coords
         navigator.geolocation.getCurrentPosition(
             pos => {
                 const lat = pos.coords.latitude.toFixed(4);
                 const lon = pos.coords.longitude.toFixed(4);
                 const unit = localStorage.getItem("tempUnit") || "C";
 
-                localStorage.setItem("geoResolved", "1");
-                window.location.href = `/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`;
+                console.log("📍 Auto-redirecting to:", lat, lon);
+                window.location.assign(`/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`);
             },
             err => {
-                // User denied or error => fallback silently
-                localStorage.setItem("geoResolved", "1");
-                console.warn("Geolocation unavailable:", err.message);
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 600000
+                console.warn("❌ Geolocation error:", err.message);
             }
         );
     })();
+
+
 
     // --- Constants ---
     const BG_CLASSES = ["default-bg", "sunny-bg", "rainy-bg", "cloudy-bg", "foggy-bg", "snowy-bg"];
@@ -78,15 +99,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function applyWeatherBackground(desc) {
-        // Only in light mode
         if (!desc) return;
         if (document.body.classList.contains("dark-mode")) return;
 
-        clearWeatherBackgrounds();
         const bgClass = mapConditionToClass(desc);
-        document.body.classList.add(bgClass);
-        document.documentElement.classList.add(bgClass);
-        console.log(`🌤️ Background set: ${bgClass} (from "${desc}")`);
+        const current = BG_CLASSES.find(c => document.body.classList.contains(c));
+
+        if (current === bgClass) return;
+
+        clearWeatherBackgrounds();
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.body.classList.add(bgClass);
+                document.documentElement.classList.add(bgClass);
+                applyWeatherSound(bgClass);
+                console.log(`🌤️ Background set: ${bgClass} (from "${desc}")`);
+            })
+        })
     }
 
     function applyWeatherOverlay(desc) {
@@ -111,6 +141,60 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
+    // --- Sound Effects ---
+    const weatherSounds = {
+        "rainy-bg": "/sounds/rain.mp3",
+        "sunny-bg": "/sounds/birds.mp3",
+        "foggy-bg": "/sounds/howling_wind.mp3",
+        "default-bg": "/sounds/breeze.mp3"
+    };
+
+    let currentAudio = null;
+    let soundEnabled = false;
+
+    function applyWeatherSound(bgClass) {
+        if (!soundEnabled) return;
+
+        const soundUrl = weatherSounds[bgClass];
+
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio = null;
+        }
+
+        if (!soundUrl) return;
+
+        currentAudio = new Audio(soundUrl);
+        currentAudio.loop = true;
+        currentAudio.volume = 0.15;
+        currentAudio.play().catch(err => console.warn("Audio play failed:", err));
+    }
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById("soundToggleButton");
+
+        if (soundEnabled) {
+            btn.innerHTML = '<i class="fas fa-volume-up"></i> Sound';
+            const bgClass = BG_CLASSES.find(c => document.body.classList.contains(c)) || "default-bg";
+            applyWeatherBackground(bgClass)
+        } else {
+            btn.innerHTML = '<i class="fas fa-volume-mute"></i> Sound';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+    }
+
+    const soundToggleButton = document.getElementById("soundToggleButton");
+    if (soundToggleButton) {
+        soundToggleButton.addEventListener("click", toggleSound);
+    }
+
     function getAqiColor(index) {
         if (index === 1) return "green";
         if (index === 2) return "yellow";
@@ -120,6 +204,39 @@ document.addEventListener('DOMContentLoaded', function () {
         if (index === 6) return "maroon";
         return "inherit";
     }
+
+    function animateTemperatureCounter() {
+        const TempEl = document.querySelector('.display-4');
+        if (!tempEl) return;
+
+        // Extract the number from the element text e.g. "21.3 °C"
+        const fullText = tempEl.textContent.trim();
+        const match = fullText.match(/-?\d+\.?\d*/)
+        if (!match) return;
+
+        const targetTemp = parseFloat(match[0]);
+        const suffix = fullText.replace(match[0], '');
+        const duration = 1000;
+        const steps = 60;
+        const interval = duration / steps;
+        let current = 0;
+        let step = 0;
+
+        tempEl.textContent = `0${suffix}`;
+
+        const timer = setInterval(() => {
+            step++;
+            current = Math.round((targetTemp / steps) * step * 10) / 10;
+
+            tempEl.textContent = `${current}${suffix}`;
+
+            if (step >= steps) {
+                clearInterval(timer);
+                tempEl.textContent = fullText; // snap to exact original value
+            }
+        }, interval);
+    }
+    
 
     function updateExtraMetrics() {
         const tempUnit = localStorage.getItem("tempUnit") || "C";
@@ -274,6 +391,36 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // --- Share Button ---
+    if (shareButton) {
+        shareButton.addEventListener("click", async () => {
+            const shareData = {
+                title: "Weather Update",
+                text: `Check the weather in ${document.querySelector("h2.fw-bold")?.textContent || "this.location"}!`,
+            };
+
+            // if browser supports native share
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    console.log("Shared successfully!");
+                } catch (err) {
+                    console.warn("Share cancelled:", err);
+                }
+                return;
+            }
+
+            // Fallback: copy URL to clipboard
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert("Copied the link to your clipboard ❤️");
+            } catch (err) {
+                console.warn("Clipboard failed:", err);
+            }
+        });
+    }
+
     // --- Clock ---
     function updateClock() {
         if (!clockElem) return;
@@ -282,11 +429,18 @@ document.addEventListener('DOMContentLoaded', function () {
     updateClock();
     setInterval(updateClock, 1000);
 
-    // --- Auto Refresh every 5 min ---
+    // --- Auto Refresh ONLY when weather is actually loaded ---
     setInterval(() => {
-        console.log("🔁 Auto-refreshing");
+        const isLocating = document.querySelector("h3.fw-bold")?.textContent?.includes("Locating");
+        if (isLocating) {
+            console.log("⏳ Skipping auto-refresh during geolocation");
+            return;
+        }
+
+        console.log("⏳ Auto-refreshing");
         location.reload();
     }, 5 * 60 * 1000);
+
 
     // --- Search Dropdown Behavior ---
     if (citySelect) {
@@ -300,8 +454,89 @@ document.addEventListener('DOMContentLoaded', function () {
             url.searchParams.set("city", selectedCity);
             url.searchParams.set("unit", unit);
             window.location.href = url.toString();
+
+            const currentCityParam = new URLSearchParams(window.location.search).get("city");
+            if (currentCityParam && citySelect) {
+                citySelect.value = currentCityParam;
+            }
         });
     }
+
+
+    // Saved cities system
+    const saveCityBtn = document.getElementById("saveCityButton");
+    const savedCitiesDropdown = document.getElementById("savedCities");
+
+    // Load existing saved cities from localStorage
+    function loadSavedCities() {
+        const savedCitiesDropdown = document.getElementById("savedCities");
+        if (!savedCitiesDropdown) return; // <--- the fix
+
+        let saved = JSON.parse(localStorage.getItem("savedCities") || "[]");
+        savedCitiesDropdown.innerHTML = `<option value>="">-- Saved Cities --</option>`;
+        savedCitiesDropdown.value = "";
+
+        saved.forEach(city => {
+            let opt = document.createElement("option");
+            opt.value = city;
+            opt.textContent = city;
+            savedCitiesDropdown.appendChild(opt);
+        });
+    }
+
+
+    function animatePageLoad() {
+        const elements = document.querySelectorAll('.card, .metric-card, .hourly-forecast-container, .alert-banner, #weather-map');
+
+        elements.forEach((el, index) => {
+            el.classList.add('animate-on-load');
+
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, 80 * index);
+        });
+    }
+
+    window.addEventListener('load', animatePageLoad);
+
+
+    // Save the currently displayed city
+    if (saveCityBtn) {
+        saveCityBtn.addEventListener("click", () => {
+            const currentCity = document.querySelector("h2.fw-bold")?.textContent;
+
+            if (!currentCity || currentCity === "Locating..." || !isNaN(currentCity)) {
+                alert("Cannot save this location.");
+                return;
+            }
+
+            let saved = JSON.parse(localStorage.getItem("savedCities") || "[]");
+
+            if (!saved.includes(currentCity)) {
+                saved.push(currentCity);
+                localStorage.setItem("savedCities", JSON.stringify(saved));
+                loadSavedCities();
+                alert(`Saved ${currentCity}`);
+            } else {
+                alert(`${currentCity} is already saved`);
+            }
+        });
+    }
+
+
+    // Loading a saved city
+    if (savedCitiesDropdown) {
+        savedCitiesDropdown.addEventListener("change", function () {
+            if (!this.value) return;
+
+            const unit = localStorage.getItem("tempUnit") || "C";
+            window.location.href = `/Weather/Index?city=${this.value}&unit=${unit}`;
+        });
+    }
+
+    // Load saved cities on page load
+    loadSavedCities();
+
 
     // --- Create Theme-Aware Tile Layer ---
     function createTileLayer() {
@@ -353,19 +588,133 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Severe Weather Alerts ---
     function checkSevereWeather(desc) {
-        const alertBox = document.getElementById("weatherAlert");
-        if (!alertBox || !desc) return;
+        if (!desc) return;
 
-        const severe = ["storm", "extreme", "hurricane", "tornado", "heavy snow", "heatwave", "flood"];
+        const severe = [
+            "storm", "extreme", "hurricane", "tornado",
+            "heavy snow", "heatwave", "flood"
+        ];
+
         const lower = desc.toLowerCase();
         const match = severe.find(word => lower.includes(word));
+
         if (match) {
-            alertBox.style.display = "block";
-            alertBox.textContent = `⚠️ SEVERE WEATHER: ${match.toUpperCase()} detected. Stay safe!`;
-            console.warn("🚨 Alert:", match);
-        } else {
-            alertBox.style.display = "none";
+            // Fill modal content
+            const body = document.getElementById("weatherAlertModalBody");
+            if (body) {
+                body.textContent = `A ${match.toUpperCase()} alert is active for this area. Stay cautious.`;
+            }
+
+            // Show modal
+            const modalEl = document.getElementById("weatherAlertModal");
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
         }
     }
-    checkSevereWeather(getConditionText());
+
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.classList.add('fade-swap');
+    }
+
+
+    // Weather Alert logic
+    if (window.weatherAlerts && window.weatherAlerts.length > 0) {
+        const first = window.weatherAlerts[0];
+        const body = document.getElementById("weatherAlertModalBody");
+
+        body.innerHTML = `
+            <h3>${first.event}</h3>
+            <p>${first.description}</p>
+            <p><strong>Severity:</strong> ${first.severity}</p>
+            <p><strong>From:</strong> ${first.effective}</p>
+            <p><strong>To:</strong> ${first.expires}</p>
+        `;
+
+        const modalEl = document.getElementById("weatherAlertModal");
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
+
+
+    // Weather Graphs
+    function createWeatherCharts() {
+        const json = document.getElementById("weatherChartData");
+        if (!json) return;
+
+        const data = JSON.parse(json.textContent);
+
+        // Hourly Temperature Chart
+        const hourlyCtx = document.getElementById("hourlyTempChart");
+        if (hourlyCtx) {
+            new Chart(hourlyCtx, {
+                type: "line",
+                data: {
+                    labels: data.hourly.map(h => h.time),
+                    datasets: [{
+                        label: "Temperature (°" + (localStorage.getItem("tempUnit") || "C") + ")",
+                        data: data.hourly.map(h => h.temp),
+                        borderColor: "#38bdf8",
+                        backgroundColor: "rgba(56,189,248,0.25)",
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: "white" } },
+                        y: { ticks: { color: "white" } }
+                    }
+                }
+            });
+        }
+
+        // 3-Day High/Low Chart
+        const dailyCtx = document.getElementById("dailyTrendChart");
+        if (dailyCtx) {
+            new Chart(dailyCtx, {
+                type: "line",
+                data: {
+                    labels: data.daily.map(d => d.date),
+                    datasets: [
+                        {
+                            label: "Max Temp",
+                            data: data.daily.map(d => d.max),
+                            borderColor: "#ef4444",
+                            backgroundColor: "rgba(239,68,68,0.25)",
+                            borderWidth: 3,
+                            tension: 0.4
+                        },
+                        {
+                            label: "Min Temp",
+                            data: data.daily.map(d => d.min),
+                            borderColor: "#3b82f6",
+                            backgroundColor: "rgba(59,130,246,0.25)",
+                            borderWidth: 3,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: "white" } } },
+                    scales: {
+                        x: { ticks: { color: "white" } },
+                        y: { ticks: { color: "white" } }
+                    }
+                }
+            });
+        }
+    }
+
+
+   
+
+    // Run charts after page load
+    window.addEventListener("load", createWeatherCharts);
 });
