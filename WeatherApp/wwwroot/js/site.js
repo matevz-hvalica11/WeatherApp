@@ -2,6 +2,27 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("✅ site.js loaded");
 
+    // --- Skeleton Loader ---
+    function hideSkeleton() {
+        const skeleton = document.getElementById('skeletonLoader');
+        if (!skeleton) return;
+
+        skeleton.classList.add('hidden');
+
+        setTimeout(() => {
+            skeleton.remove();
+        }, 400);
+    }
+
+    // Hide skeleton once everything is loaded and rendered
+    window.addEventListener('load', () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                hideSkeleton();
+            });
+        });
+    });
+
     // --- Auto Geo Location on first visit
     (function tryAutoGeoLocation() {
 
