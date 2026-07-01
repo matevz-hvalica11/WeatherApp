@@ -7,6 +7,8 @@ This application started as a small task at a company called Business Solutions,
 - Temperature data, presented in both Celsius and Fahrenheit
 - 6 distinct weather patterns (precipitation, wind speed, air quality, dew point, humidity, UV index)
 - The ability to share weather data to anyone on the web (via the Share button)
+- 24-hour weather forecast available at all times
+- 3-day forecast, able to see in the future
 - Light/dark theme toggle, based upon your personal preferences
 - Leaflet.js world map, ability to hover over any location, clicking that specific location on the map and get instant weather updates
 - Leaflet.js distinct light/dark theme depending on the theme of the interface (using CartoDB, everything credited)
