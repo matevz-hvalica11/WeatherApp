@@ -1,6 +1,12 @@
 # ⛅ MyWeatherApp - A Modern Weather Interface Running via ASP.NET Core
 
-This application started as a small task at a company called Business Solutions, where last year, I've had my internship at. I did not need to do any of this, but I decided to dive deep into it. Over a year later, I've turned it into a full-blown production application running via the Azure Cloud Service. I've sank hundreds upon hundreds of hours into it, fought exceptions, build errors, and countless other headaches, but persisted through no matter what. I come from an environmentalist background, so this application took inspiration from that. It is my current diploma project, in development, polishing, and adding new features.
+This application started as a small task at a company called Business Solutions, where last year, I've had my internship at. 
+
+I did not need to do any of this, but I decided to dive deep into it. Over a year later, I've turned it into a full-blown production application running via the Azure Cloud Service. 
+
+I've sank hundreds upon hundreds of hours into it, fought exceptions, build errors, and countless other headaches, but persisted through no matter what. I come from an environmentalist background, so this application took inspiration from that. 
+
+It is my current diploma project, in development, polishing, and adding new features.
 
 ## 🛠️ Features
 
