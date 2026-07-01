@@ -1,152 +1,29 @@
-# 🌦️ Weather App — Modern, Dynamic, Cloud-Deployed
+# MyWeatherApp - A Modern Weather Interface Running via ASP.NET Core
 
-A fully featured, real-time weather application built with ASP.NET Core MVC, WeatherAPI, and Leaflet.js, developed in Visual Studio 2026 and deployed on Microsoft Azure App Service.
+This application started as a small task at a company called Business Solutions, where last year, I've had my internship at. I did not need to do any of this, but I decided to dive deep into it. Over a year later, I've turned it into a full-blown production application running via the Azure Cloud Service. I've sank hundreds upon hundreds of hours into it, fought exceptions, build errors, and countless other headaches, but persisted through no matter what. I come from an environmentalist background, so this application took inspiration from that. It is my current diploma project, in development, polishing, and adding new features.
 
-This project began as an internship assignment at Business Solutions, but quickly evolved into a complete, production-capable weather platform — designed, expanded, and engineered with real-world software development principles.
+## Features
 
-## 🚀 Project Vision
+- Temperature data, presented in both Celsius and Fahrenheit
+- 6 distinct weather patterns (precipitation, wind speed, air quality, dew point, humidity, UV index)
+- The ability to share weather data to anyone on the web (via the Share button)
+- Light/dark theme toggle, based upon your personal preferences
+- Leaflet.js world map, ability to hover over any location, clicking that specific location on the map and get instant weather updates
+- Leaflet.js distinct light/dark theme depending on the theme of the interface (using CartoDB, everything credited)
+- A real-time clock present on the front-end
+- Background tiles in light theme that change color depending on weather
+- A dropdown menu, able to navigate to the most common locations in the world for instant weather data
+- Instant geo-location weather search upon entering the site
+- Added sound effects depending on the weather conditions (still in works)
+- Weather history, the ability to search a specific location's weather history
 
-What started as a simple “display the temperature” task transformed into a full weather system with forecasting, interactivity, UI theming, geolocation, historical weather lookup, and cloud deployment.
+## Status
 
-This app demonstrates:
+Currently polishing, developing, adding new features.
 
-✔ API integration
 
-✔ Frontend + backend synergy
+## Credits
 
-✔ Modern UI/UX design
-
-✔ Real deployment pipelines
-
-✔ Software engineering
-
-# ✨ Features
-
-## 🌤️ Current Weather + Forecast
-
-✔ Real-time weather data
-
-✔ 24-hour hourly forecast
-
-✔ 3-day extended forecast
-
-## 📊 Detailed Weather Metrics
-
-✔ UV Index
-
-✔ Wind Speed
-
-✔ Humidity
-
-✔ Dew Point
-
-✔ Precipitation
-
-✔ Air Quality Index (AQI)
-
-## 🎨 UI & UX Enhancements
-
-✔ Apple-Weather-style layout & animations
-
-✔ Weather-based dynamic backgrounds
-
-✔ Smooth glassmorphism cards
-
-✔ Real-time digital clock
-
-✔ Light / Dark theme toggle
-
-✔ °C / °F temperature switching
-
-## 🗺️ Interactive Map
-
-✔ Integrated Leaflet.js
-
-✔ Pan, zoom, click anywhere to load weather for that location
-
-✔ Theme-aware map tiles (light/dark mode)
-
-## 📍 Geolocation
-
-✔ Automatic location detection on first visit
-
-✔ Falls back gracefully if permission is denied
-
-## 🔗 Sharing & Convenience
-
-✔ One-click weather sharing
-
-✔ Manual refresh
-
-✔ Automatic refresh every 5 minutes
-
-✔ Saved locations system (localStorage)
-
-## 🕰️ 🌡️ NEW: Historical Weather Lookup
-
-A complete weather history feature with:
-
-✔ City & date search
-
-✔ Daily summary
-
-✔ Hour-by-hour breakdown
-
-✔ Apple-style animated cards
-
-✔ Full WeatherAPI Historic endpoint integration
-
-✔ Azure-compatible routing and deployment setup
-
-This feature is fully implemented and production-ready.
-
-## 🚨 NEW: Full Weather Alerts System
-
-A complete, production-grade alert integration:
-
-✔ Automatic WeatherAPI alert detection
-
-✔ Multiple alerts supported simultaneously
-
-✔ Clean alert banner with hover animations
-
-✔ Detailed alert modal with headline, severity, timeline, and full description
-
-✔ Localized alert text
-
-✔ Apple Weather–inspired design with glassmorphism and smooth transitions
-
-✔ Works in both light and dark mode
-
-✔ Fully integrated backend model + controller logic
-
-This turns the app into a real-world, safety-aware weather tool — not just a temperature display.
-
-## ☁️ Cloud Hosting
-
-The entire application is deployed on Azure App Service, ensuring:
-
-✔ Global accessibility
-
-✔ SSL (HTTPS)
-
-✔ Continuous deployment
-
-✔ Production stability
-
-## 🔗 Live App:
-https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
-(for the best viewing experience, keep browser zoom at 100%)
-
-## 🖼️ Credits
-
-Weather Icons: Erik Flowers
-
-Map Framework: Leaflet.js
-
-Weather Data: WeatherAPI.com
-
-## 🔄 Project Status
-
-Actively developed.
-New features, UI updates, and performance improvements continue to be added.
+- Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
+- Leaflet.js world map (https://leafletjs.com/)
+- CartoDB (https://github.com/cartodb/basemap-styles)
