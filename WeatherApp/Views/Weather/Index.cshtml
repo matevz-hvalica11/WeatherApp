@@ -32,6 +32,56 @@
 
 <div class="main-content">
 
+    @if (!string.IsNullOrWhiteSpace(Model.CityName))
+    {
+        <div id="skeletonLoader" class="skeleton-wrapper">
+            <!-- Skeleton current weather card -->
+            <div class="card glass shadow-sm text-center mb-5 py-5 px-3">
+                <div class="skeleton skeleton-temp mx-auto"></div>
+                <div class="skeleton skeleton-text medium mx-auto"></div>
+                <div class="skeleton skeleton-text short mx-auto"></div>
+            </div>
+
+            <!-- Skeleton hourly -->
+            <div class="d-flex gap-4 px-2 mb-5 overflow-hidden">
+                @for (int i = 0; i < 6; i++)
+                {
+                    <div class="skeleton skeleton-hourly"></div>
+                }
+            </div>
+
+            <!-- Skeleton forecast cards -->
+            <div class="row justify-content-center g-4 mb-5">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="skeleton skeleton-card"></div>
+                    </div>
+                }
+            </div>
+
+            <!-- Skeleton metrics row 1 -->
+            <div class="row text-center mb-5 g-4">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-md-4">
+                        <div class="skeleton skeleton-metric"></div>
+                    </div>
+                }
+            </div>
+
+            <!-- Skeleton metrics row 2 -->
+            <div class="row text-center mb-5 g-4">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-12 col-md-4">
+                        <div class="skeleton skeleton-metric"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
     <div id="weather-overlay"></div>
 
 
@@ -49,18 +99,25 @@
             }
         </div>
         <div class="col-12 col-md-6 text-center text-md-end mt-3 mt-md-0">
-            <div class="d-flex flex-wrap justify-content-md-end gap-3">
-                <button id="refreshButton" class="btn btn-outline-primary px-4 py-2">
-                    <i class="fas fa-sync-alt"></i> Refresh
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-2">
+                <button id="refreshButton" class="btn btn-outline-primary px-3 py-2">
+                    <i class="fas fa-sync-alt"></i>
+                    <span class="btn-label ms-1">Refresh</span>
                 </button>
-                <button id="themeToggleButton" class="btn btn-outline-dark px-4 py-2">
-                    <i class="fas fa-moon"></i> Dark Theme
+                <button id="themeToggleButton" class="btn btn-outline-dark px-3 py-2">
+                    <i class="fas fa-moon"></i>
+                    <span class="btn-label ms-1">Dark Theme</span>
                 </button>
-                <button id="tempToggleButton" class="btn btn-outline-primary px-4 py-2">
-                    Toggle °C/°F
+                <button id="tempToggleButton" class="btn btn-outline-primary px-3 py-2">
+                    <span class="btn-label">Toggle °C/°F</span>
                 </button>
-                <button id="shareButton" class="btn btn-outline-secondary px-4 py-2">
-                    Share <i class="fas fa-share-alt ms-1"></i>
+                <button id="soundToggleButton" class="btn btn-outline-secondary px-3 py-2">
+                    <i class="fas fa-volume"></i>
+                    <span class="btn-label ms-1">Sound</span>
+                </button>
+                <button id="shareButton" class="btn btn-outline-secondary px-3 py-2">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="btn-label ms-1">Share</span>
                 </button>
             </div>
         </div>
@@ -137,16 +194,31 @@
         <span id="clock" class="fs-4 fw-bold"></span>
     </div>
 
-    @if (Model.CityName == "Locating...")
+    @if (string.IsNullOrWhiteSpace(Model.CityName))
     {
-        <div class="text-center my-5">
-            <h3 class="fw-bold">Select your location.</h3>
-            <p class="text-muted">Please select your location for weather data.</p>
-        </div>
-
-        @* STOP RENDERING THE REST *@
-        return;
-
+        <div class="empty-state text-center animate-on-load visible">
+            <div class="empty-state-icon mb-4">
+                <i class="wi wi-day-cloudy"></i>
+            </div>
+            <h2 class="empty-state-title mb-3">What's the weather like?</h2>
+            <p class="empty-state-subtitle mb-4">Search for a city, pick one from the dropdown, <br/>or allow location access to get started.</p>
+            <div class="empty-state-hints d-flex justify-content-center gap-4 flex-wrap">
+                <div class="empty-hint-card glass px-4 py-3">
+                    <div class="empty-hint-card glass px-4 py-3">
+                        <i class="fas fa-search-location mb-2"></i>
+                        <p class="mb-0">Search a city</p>
+                        </div>
+                        <div class="empty-hint-card glass px-4 py-3">
+                            <i class="fas fa-list mb-2"></i>
+                            <p class="mb-0">Pick from dropdown</p>
+                        </div>
+                        <div class="empty-hint-card glass px-4 py-3">
+                            <i class="fas fa-location-arrow mb-2"></i>
+                            <p class="mb-0">Use my location</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
     }
 
     <!-- Current Weather Card -->

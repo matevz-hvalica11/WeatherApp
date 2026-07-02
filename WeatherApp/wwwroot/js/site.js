@@ -2,6 +2,27 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("✅ site.js loaded");
 
+    // --- Skeleton Loader ---
+    function hideSkeleton() {
+        const skeleton = document.getElementById('skeletonLoader');
+        if (!skeleton) return;
+
+        skeleton.classList.add('hidden');
+
+        setTimeout(() => {
+            skeleton.remove();
+        }, 400);
+    }
+
+    // Hide skeleton once everything is loaded and rendered
+    window.addEventListener('load', () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                hideSkeleton();
+            });
+        });
+    });
+
     // --- Auto Geo Location on first visit
     (function tryAutoGeoLocation() {
 
@@ -92,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(() => {
                 document.body.classList.add(bgClass);
                 document.documentElement.classList.add(bgClass);
+                applyWeatherSound(bgClass);
                 console.log(`🌤️ Background set: ${bgClass} (from "${desc}")`);
             })
         })
@@ -119,6 +141,60 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
+    // --- Sound Effects ---
+    const weatherSounds = {
+        "rainy-bg": "/sounds/rain.mp3",
+        "sunny-bg": "/sounds/birds.mp3",
+        "foggy-bg": "/sounds/howling_wind.mp3",
+        "default-bg": "/sounds/breeze.mp3"
+    };
+
+    let currentAudio = null;
+    let soundEnabled = false;
+
+    function applyWeatherSound(bgClass) {
+        if (!soundEnabled) return;
+
+        const soundUrl = weatherSounds[bgClass];
+
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio = null;
+        }
+
+        if (!soundUrl) return;
+
+        currentAudio = new Audio(soundUrl);
+        currentAudio.loop = true;
+        currentAudio.volume = 0.15;
+        currentAudio.play().catch(err => console.warn("Audio play failed:", err));
+    }
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById("soundToggleButton");
+
+        if (soundEnabled) {
+            btn.innerHTML = '<i class="fas fa-volume-up"></i> Sound';
+            const bgClass = BG_CLASSES.find(c => document.body.classList.contains(c)) || "default-bg";
+            applyWeatherBackground(bgClass)
+        } else {
+            btn.innerHTML = '<i class="fas fa-volume-mute"></i> Sound';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+    }
+
+    const soundToggleButton = document.getElementById("soundToggleButton");
+    if (soundToggleButton) {
+        soundToggleButton.addEventListener("click", toggleSound);
+    }
+
     function getAqiColor(index) {
         if (index === 1) return "green";
         if (index === 2) return "yellow";
@@ -128,6 +204,39 @@ document.addEventListener('DOMContentLoaded', function () {
         if (index === 6) return "maroon";
         return "inherit";
     }
+
+    function animateTemperatureCounter() {
+        const TempEl = document.querySelector('.display-4');
+        if (!tempEl) return;
+
+        // Extract the number from the element text e.g. "21.3 °C"
+        const fullText = tempEl.textContent.trim();
+        const match = fullText.match(/-?\d+\.?\d*/)
+        if (!match) return;
+
+        const targetTemp = parseFloat(match[0]);
+        const suffix = fullText.replace(match[0], '');
+        const duration = 1000;
+        const steps = 60;
+        const interval = duration / steps;
+        let current = 0;
+        let step = 0;
+
+        tempEl.textContent = `0${suffix}`;
+
+        const timer = setInterval(() => {
+            step++;
+            current = Math.round((targetTemp / steps) * step * 10) / 10;
+
+            tempEl.textContent = `${current}${suffix}`;
+
+            if (step >= steps) {
+                clearInterval(timer);
+                tempEl.textContent = fullText; // snap to exact original value
+            }
+        }, interval);
+    }
+    
 
     function updateExtraMetrics() {
         const tempUnit = localStorage.getItem("tempUnit") || "C";
@@ -187,6 +296,10 @@ document.addEventListener('DOMContentLoaded', function () {
             applyWeatherUI();
         }
         console.log("🌗 Theme on load:", savedTheme);
+
+        if (themeToggleButton) {
+            themeToggleButton.querySelector('.btn-label').textContent = savedTheme === 'dark' ? ' Light Theme' : ' Dark Theme';
+        }
     }
 
     function toggleTheme() {
@@ -208,6 +321,10 @@ document.addEventListener('DOMContentLoaded', function () {
             window.map.removeLayer(mapTileLayer);
             mapTileLayer = createTileLayer();
             mapTileLayer.addTo(window.map);
+        }
+
+        if (themeToggleButton) {
+            themeToggleButton.querySelector('.btn-label').textContent = willBeDark ? ' Light Theme' : ' Dark Theme';
         }
     }
 
@@ -376,6 +493,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    function animatePageLoad() {
+        const elements = document.querySelectorAll('.card, .metric-card, .hourly-forecast-container, .alert-banner, #weather-map');
+
+        elements.forEach((el, index) => {
+            el.classList.add('animate-on-load');
+
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, 80 * index);
+        });
+    }
+
+    window.addEventListener('load', animatePageLoad);
+
+
     // Save the currently displayed city
     if (saveCityBtn) {
         saveCityBtn.addEventListener("click", () => {
@@ -454,10 +586,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 250);
 
         // Click to fetch weather
-        window.map.on("click", function (e) {
+        window.map.on("click", async function (e) {
             const lat = e.latlng.lat.toFixed(4);
             const lon = e.latlng.lng.toFixed(4);
             const unit = localStorage.getItem("tempUnit") || "C";
+
+            const res = await fetch(`/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`);
+            const text = await res.text();
+
+            if (text.includes("NO_WEATHER_DATA")) {
+                alert("No weather data for this location. Try clicking on land.");
+                return;
+            }
+
             window.location.href = `/Weather/Index?lat=${lat}&lon=${lon}&unit=${unit}`;
         });
     }
@@ -587,6 +728,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
+
+
+   
 
     // Run charts after page load
     window.addEventListener("load", createWeatherCharts);

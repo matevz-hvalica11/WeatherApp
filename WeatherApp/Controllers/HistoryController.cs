@@ -42,7 +42,7 @@ namespace MyWeatherApp.Controllers
             }
 
             string encodedCity = Uri.EscapeDataString(city);
-            string url = $"https://api.weatherapi.com/v1/history.json?key={apiKey}&q){encodedCity}&dt={date}";
+            string url = $"https://api.weatherapi.com/v1/history.json?key={apiKey}&q={encodedCity}&dt={date}";
 
             try
             {
@@ -52,7 +52,7 @@ namespace MyWeatherApp.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("WeatherAPI history request failed: {StatusCode}", response.StatusCode);
-                    ViewBag.Error = $"API returned status {response.StatusCode}";
+                    ViewBag.Error = "Historical weather is only available for the last 24 hours on the free plan. Please enter yesterday's or today's date.";
                     return View("HistoryResult");
                 }
 
