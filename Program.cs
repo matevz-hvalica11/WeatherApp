@@ -1,3 +1,5 @@
+using MyWeatherApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Do not manually rebuild Configuration
@@ -5,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IWeatherService, WeatherService>();
 
 var app = builder.Build();
 
@@ -19,6 +22,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "history",
+    pattern: "History/{action=Index}/{id?}",
+    defaults: new { controller = "History", action = "Index" });
 
 app.MapControllerRoute(
     name: "default",

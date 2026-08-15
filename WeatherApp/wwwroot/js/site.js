@@ -1,4 +1,4 @@
-﻿// site.js
+// site.js
 document.addEventListener('DOMContentLoaded', function () {
     console.log("✅ site.js loaded");
 
