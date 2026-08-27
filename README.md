@@ -23,6 +23,7 @@ I've sank hundreds upon hundreds of hours into it, fought exceptions, build erro
 - Instant geo-location weather search upon entering the site
 - Added sound effects depending on the weather conditions (still in works)
 - Weather history, the ability to search a specific location's weather history
+- Login, registering, adding accounts
 
 ## 🔃 Status
 
