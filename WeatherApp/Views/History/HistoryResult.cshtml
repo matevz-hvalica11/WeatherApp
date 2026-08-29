@@ -57,18 +57,18 @@
     <h2 class="section-title mt-5 mb-3 text-center fade-in-delayed">Hourly Breakdown</h2>
 
     <div class="hourly-grid">
+        @{ int index = 0; }
         @foreach (var hour in Model.Hourly)
         {
-            <div class="hour-card history-glass animated-card">
+            <div class="hour-card history-glass animated-card" style="animation-delay: @(index * 0.03);">
                 <div class="hour-time">@hour.Time.Substring(11)</div>
-
                 <div class="hour-temp temp">@hour.TempC °C</div>
-
                 <div class="mini-metrics">
                     <span>💧 @hour.Humidity %</span>
                     <span>🌧 @hour.PrecipMm mm</span>
                 </div>
             </div>
+            index++;
         }
     </div>
 </div>
