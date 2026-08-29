@@ -563,6 +563,9 @@ body.dark-mode .glass {
     padding: 15px;
     text-align: center;
     border-radius: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: floatUp 0.5s ease forwards;
 }
 
 .hour-time {
@@ -608,3 +611,4 @@ body.dark-mode .alert-banner:hover {
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.25);
 }
+

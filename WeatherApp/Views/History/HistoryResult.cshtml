@@ -45,6 +45,14 @@
     </div>
 
 
+    <!-- Hourly Temperature Chart -->
+    <h2 class="section-title mt-5 mb-3 text-center fade-in-delayed">Temperature Chart</h2>
+
+    <div class="history-glass p-4 mb-5">
+        <canvas id="hourlyHistoryChart" height="100"></canvas>
+    </div>
+
+
     <!-- Hourly Breakdown -->
     <h2 class="section-title mt-5 mb-3 text-center fade-in-delayed">Hourly Breakdown</h2>
 
@@ -64,3 +72,30 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        const hourlyLabels = @Html.Raw(Json.Serialize(Model.Hourly.Select(h => h.Time.Substring(11))));
+        const hourlyTemps = @Html.Raw(Json.Serialize(Model.Hourly.Select(h => h.TempC)));
+        const ctx = document.getElementById('hourlyHistoryChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: hourlyLabels,
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: hourlyTemps,
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56,189,248,0.25)',
+                    borderWidth: 3,
+                    pointRadius: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+}
