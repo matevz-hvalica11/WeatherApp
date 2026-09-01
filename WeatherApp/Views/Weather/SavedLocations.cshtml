@@ -1,0 +1,43 @@
+﻿@model List<MyWeatherApp.Models.SavedLocation>
+@{
+    ViewData["Title"] = "Saved Locations";
+}
+
+<div class="main-content">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold">⭐ Saved Locations</h2>
+        </div>
+    </div>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center text-muted mt-5">
+        <p class="fs-5">No saved locations yet.</p>
+        <a href="/" class="btn btn-outline-primary mt-2">Search for a city.</a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var location in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card glass h-100 p-4 text-center">
+                    <h5 class="fw-bold mb-2">@location.CityName</h5>
+                    <p class="text-muted small mb-3">Saved: @location.SavedAt.ToString("dd MMM yyyy")</p>
+                    <div class="d-flex justfy-content-center gap-2">
+                        <a asp-controller="Weather" asp-action="Index" asp-route-city="@location.CityName"
+                            class="btn btn-outline-primary btn-sm">View Weather</a>
+                        <form method="post" asp-action="DeleteSavedLocation" asp-controller="Weather" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@location.Id" />
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

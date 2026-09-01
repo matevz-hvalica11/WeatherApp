@@ -37,12 +37,34 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="History" asp-action="Index">History</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Weather" asp-action="SavedLocations">Saved</a>
+                        </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <span class="nav-link text-dark">Hello, @User.Identity.Name!</span>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                        <button type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                            }
+                        </ul>
                 </div>
             </div>
         </nav>
