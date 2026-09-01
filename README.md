@@ -1,14 +1,9 @@
 # ⛅ MyWeatherApp - A Modern Weather Interface Running via ASP.NET Core
-
 This application started as a small task at a local Slovenian IT firm called Business Solutions, where I've had my internship at last year. 
-
 I did not need to do any of this, it was just a small task concerning a simple weather display displaying simple weather data, but something in me found inspiration in all of this, so I decided to dive deep into it. Over a year later, I've turned it into a full-blown production application running on the Azure Cloud Service. 
-
 I've sank hundreds upon hundreds of hours into it, fought exceptions, build errors, crashes, debugging, and countless other headaches, but persisted through no matter what. I come from an environmentalist background, so this application took inspiration from that. 
 
-
 ## 🛠️ Features
-
 - Temperature data, presented in both Celsius and Fahrenheit
 - 6 distinct weather patterns (precipitation, wind speed, air quality, dew point, humidity, UV index)
 - The ability to share weather data to anyone on the web (via the Share button)
@@ -23,15 +18,13 @@ I've sank hundreds upon hundreds of hours into it, fought exceptions, build erro
 - Instant geo-location weather search upon entering the site
 - Added sound effects depending on the weather conditions (still in works)
 - Weather history, the ability to search a specific location's weather history
-- Login, registering, adding accounts
+- User accounts — register, log in, and manage your personal profile
+- Saved locations — save your favourite cities and access their weather instantly from your account
 
 ## 🔃 Status
-
 Currently polishing, developing, implementing and adding new creative features.
 
-
 ## 📑 Credits
-
 - Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
 - Leaflet.js world map (https://leafletjs.com/)
 - CartoDB (https://github.com/cartodb/basemap-styles)
