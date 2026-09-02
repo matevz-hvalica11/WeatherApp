@@ -24,6 +24,8 @@ I've sank hundreds upon hundreds of hours into it, fought exceptions, build erro
 ## 🔃 Status
 Currently polishing, developing, implementing and adding new creative features.
 
+Link to the weather application: https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/?city=
+
 ## 📑 Credits
 - Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
 - Leaflet.js world map (https://leafletjs.com/)
