@@ -52,7 +52,7 @@ namespace MyWeatherApp.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("WeatherAPI history request failed: {StatusCode}", response.StatusCode);
-                    ViewBag.Error = "Historical weather is only available for the last 24 hours on the free plan. Please enter yesterday's or today's date.";
+                    ViewBag.Error = "Historical weather is only available for the last 24 hours on the free WeatherAPI plan. Please enter yesterday's or today's date.";
                     return View("HistoryResult");
                 }
 
