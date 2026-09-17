@@ -45,8 +45,16 @@ namespace MyWeatherApp.Controllers
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 var userId = _userManager.GetUserId(User);
+
                 ViewBag.IsSaved = await _dbContext.SavedLocations
                     .AnyAsync(s => s.UserId == userId && s.CityName == model.CityName);
+
+                _dbContext.SearchHistories.Add(new SearchHistory
+                {
+                    CityName = model.CityName,
+                    UserId = userId
+                });
+                await _dbContext.SaveChangesAsync();
             }
             else
             {
@@ -55,9 +63,20 @@ namespace MyWeatherApp.Controllers
 
             return View(model);
         }
-
-        [HttpPost]
+       
         [Authorize]
+        public async Task<IActionResult> SearchHistory()
+        {
+            var userId = _userManager.GetUserId(User);
+            var history = await _dbContext.SearchHistories
+                .Where(s => s.UserId == userId)
+                .OrderByDescending(s => s.SearchedAt)
+                .Take(50)
+                .ToListAsync();
+
+            return View(history);
+        }
+
         public async Task<IActionResult> SaveLocation(string cityName, double lat, double lon)
         {
             var userId = _userManager.GetUserId(User);

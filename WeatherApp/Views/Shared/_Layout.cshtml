@@ -42,6 +42,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Weather" asp-action="SavedLocations">Saved</a>
                         </li>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Weather" asp-action="SearchHistory">My Searches</a>
+                        </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
