@@ -457,16 +457,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!selectedCity) return;
 
             const unit = localStorage.getItem("tempUnit") || "C";
-            const url = new URL(window.location.href);
-            url.pathname = "/Weather/Index";
+            const url = new URL(window.location.origin + "/Weather/Index");
             url.searchParams.set("city", selectedCity);
             url.searchParams.set("unit", unit);
             window.location.href = url.toString();
-
-            const currentCityParam = new URLSearchParams(window.location.search).get("city");
-            if (currentCityParam && citySelect) {
-                citySelect.value = currentCityParam;
-            }
         });
     }
 
@@ -550,15 +544,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function createTileLayer() {
         const isDark = document.body.classList.contains("dark-mode");
         const tileLayerUrl = isDark
-            ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            ? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
             : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
         return L.tileLayer(tileLayerUrl, {
             attribution: isDark
-                ? '&copy; <a href="https://carto.com/">CartoDB</a>'
+                ? '&copy; <a href="https://www.esri.com/">Esri</a>'
                 : '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-            subdomains: isDark ? "abcd" : "abc",
-            maxZoom: 19
+            subdomains: isDark ? "" : "abc",
+            maxZoom: 16
         });
     }
 

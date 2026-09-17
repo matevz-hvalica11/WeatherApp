@@ -633,3 +633,25 @@ body.dark-mode .alert-banner:hover {
     background: rgba(255, 255, 255, 0.25);
 }
 
+
+/* Weather Alert Modal */
+.themed-modal {
+    background-color: #ffffff;
+    color: #1f2937;
+    border-radius: 16px;
+}
+
+body.dark-mode .themed-modal {
+    background-color: #111827 !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #1e293b !important;
+}
+
+body.dark-mode .themed-modal .modal-header,
+body.dark-mode .themed-modal .modal-footer {
+    border-color: #1e293b !important;
+}
+
+body.dark-mode .themed-modal .btn.close {
+    filter: invert(1);
+}

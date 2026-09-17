@@ -353,7 +353,7 @@
 @if (Model.Alerts != null && Model.Alerts.Any())
     {
         <script>
-            window.weatherAlerts = @Html.Raw(Json.Serialize(Model.Alerts));
+            window.weatherAlerts = @Html.Raw(Json.Serialize(Model.Alerts))
         </script>
 
         <div class="alert-banner">
