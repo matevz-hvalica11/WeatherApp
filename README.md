@@ -22,7 +22,7 @@ I've sank hundreds upon hundreds of hours into it, fought exceptions, build erro
 - Saved locations — save your favorite cities and access their weather instantly from your account.
 
 ## 🔃 Status
-Currently polishing, developing, implementing and adding new creative features.
+Application up and running.
 
 Link to the weather application: https://myweatherappdeployed-hmdmgmeccgejfbat.westeurope-01.azurewebsites.net/
 
