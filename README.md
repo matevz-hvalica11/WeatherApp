@@ -29,5 +29,6 @@ Link to the weather application: https://myweatherappdeployed-hmdmgmeccgejfbat.w
 ## 📑 Credits
 - Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
 - Leaflet.js world map (https://leafletjs.com/)
-- CartoDB (https://github.com/cartodb/basemap-styles)
+- Esri: ArcGIS Online Basemaps (https://server.arcgisonline.com/arcgis/rest/services)
 - ChartJS (https://www.chartjs.org/docs/latest/)
+- Magnus Formula Documentation (https://journals.ametsoc.org/view/journals/apme/35/4/1520-0450_1996_035_0601_imfaos_2_0_co_2.xml)
