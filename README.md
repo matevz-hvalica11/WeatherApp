@@ -18,6 +18,7 @@ I've sank hundreds upon hundreds of hours into it, fought exceptions, build erro
 - Instant geo-location weather search upon entering the site.
 - Added sound effects depending on the weather conditions (still in works).
 - Weather history, the ability to search a specific location's weather history.
+- Historical weather graph using Chart.js.
 - User accounts — register, log in, and manage your personal profile.
 - Saved locations — save your favorite cities and access their weather instantly from your account.
 
@@ -30,5 +31,5 @@ Link to the weather application: https://myweatherappdeployed-hmdmgmeccgejfbat.w
 - Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
 - Leaflet.js world map (https://leafletjs.com/)
 - Esri: ArcGIS Online Basemaps (https://server.arcgisonline.com/arcgis/rest/services)
-- ChartJS (https://www.chartjs.org/docs/latest/)
+- Chart.JS (https://www.chartjs.org/docs/latest/)
 - Magnus Formula Documentation (https://journals.ametsoc.org/view/journals/apme/35/4/1520-0450_1996_035_0601_imfaos_2_0_co_2.xml)
