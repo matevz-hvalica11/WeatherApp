@@ -30,3 +30,4 @@ Link to the weather application: https://myweatherappdeployed-hmdmgmeccgejfbat.w
 - Eric Flowers - Weather icons (https://github.com/erikflowers/weather-icons)
 - Leaflet.js world map (https://leafletjs.com/)
 - CartoDB (https://github.com/cartodb/basemap-styles)
+- ChartJS (https://www.chartjs.org/docs/latest/)
